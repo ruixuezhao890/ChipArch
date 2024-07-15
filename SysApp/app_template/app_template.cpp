@@ -13,7 +13,7 @@
 //
 
 #include "app_template.h"
-
+#if 1
 app_template::~app_template() = default;
 
 void app_template::creat() {
@@ -40,15 +40,6 @@ void app_template::Destruction() {
 
 }
 
-Page *app_template::createNewPage() {
-    page_=app_template_ui_= new app_template_ui(this->getAppName());
-    return page_;
-}
-
-void app_template::deleteOldPage() {
-
-}
-
 app_template_package::~app_template_package() = default;
 
 void *app_template_package::newApp() {
@@ -70,3 +61,4 @@ void *app_template_package::getAppIcon() {
 void *app_template_package::getCustomData() {
     return AppPackage::getCustomData();
 }
+#endif

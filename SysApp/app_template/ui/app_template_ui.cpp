@@ -6,7 +6,7 @@
 * @author : zen3
 * @brief : None
 * @attention : None
-* @date : 2024/6/9 
+* @date : 2024/6/9
 *********************************************************************
 *********
 */
@@ -27,12 +27,5 @@ void app_template_ui::exit() {
 
 }
 
-bool app_template_ui::getScreenOrientation() {
-    return false;
-}
-
-String &app_template_ui::getNowAppName() {
-    return this->now_app_name_;
-}
 
 

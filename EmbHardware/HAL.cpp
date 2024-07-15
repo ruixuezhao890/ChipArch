@@ -12,16 +12,19 @@
 */
 //
 
-#include <unistd.h>
+
 #include "HAL.h"
 
 HAL * HAL::hal_= nullptr;
 DisplayInterface * HAL:: DisplayInterface_= nullptr;
 InputDeviceGroup * HAL:: InputDeviceGroup_= nullptr;
-
+fileSystemInterface * HAL:: FileInterface_= nullptr;
 void HAL::initInputDevice(char letter) {
       DisplayInterface_=new DisplayInterface();
       InputDeviceGroup_=new InputDeviceGroup(DisplayInterface_,letter);
+    if (InputDeviceGroup_->getFileSystemInterface()){
+        FileInterface_=InputDeviceGroup_->getFileSystemInterface();
+    }
 }
 
 HAL *HAL::getHal() {
@@ -38,8 +41,11 @@ bool HAL::Inject(HAL *inject,char letter) {
         return false;
     }
     inject->init();
+    spdlog::set_level(spdlog::level::debug);
     initInputDevice(letter);
-    LV_LOG("HAL injected, type: {%s}\n", inject->type().c_str());
+
+    spdlog::info("HAL injected, type:{}", inject->type().c_str());
+//    LV_LOG();
 
     hal_ = inject;
 
@@ -56,7 +62,7 @@ bool HAL::check() {
 void HAL::destroy() {
     if (hal_ == nullptr)
     {
-       LV_LOG("HAL not exist");
+       spdlog::info("HAL not exist");
         return;
     }
     delete hal_;
@@ -68,12 +74,14 @@ void HAL::destroy() {
 }
 
 void HAL::Delay(unsigned long milliseconds) {
-   getHal()->delay(milliseconds);
+#if ESP32&&MCU
+    getHal()->delay_ms(milliseconds);
+#else
+    getHal()->delay(milliseconds);
+
+#endif
 }
 
-void HAL::delay(unsigned long milliseconds) {
-    usleep(milliseconds);
-}
 
 void HAL::Display(lv_disp_drv_t *disp_drv, const lv_area_t *area, lv_color_t *color_p) {
     getHal()->display(disp_drv,area,color_p);
@@ -90,7 +98,7 @@ void HAL::KeyBoardRead( lv_indev_data_t *data) {
 void HAL::keyboard_read( lv_indev_data_t *data) {
 
 }
-
+#if COMPUTER
 void HAL::MousePointRead(lv_indev_data_t *data) {
     getHal()->mouse_point_read(data);
 }
@@ -98,7 +106,9 @@ void HAL::MousePointRead(lv_indev_data_t *data) {
 void HAL::mouse_point_read(lv_indev_data_t *data) {
 
 }
+#elif MCU
 
+#endif
 DisplayInterface *HAL::getDisplayInterface() {
     return DisplayInterface_;
 }
@@ -106,6 +116,33 @@ DisplayInterface *HAL::getDisplayInterface() {
 InputDeviceGroup *HAL::getInputDeviceGroup() {
     return InputDeviceGroup_;
 }
+#if MCU
+void HAL::TouchpadPointRead(lv_indev_data_t *data) {
+    getHal()->touchpad_point_read(data);
+}
+
+void HAL::touchpad_point_read(lv_indev_data_t *data) {
+
+}
+#endif
+void HAL::UpDate() {
+    lv_task_handler();
+    getHal()->up_date();
+}
+
+void HAL::up_date() {
+
+}
+#if ESP32&&MCU
+void HAL::delay_ms(unsigned long milliseconds) {
+
+}
+#elif COMPUTER
+void HAL::delay(unsigned long milliseconds) {
+
+}
+#endif
+
 
 
 

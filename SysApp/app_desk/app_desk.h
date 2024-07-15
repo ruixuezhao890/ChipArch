@@ -6,7 +6,7 @@
 * @author : zen3
 * @brief : None
 * @attention : None
-* @date : 2024/4/12 
+* @date : 2024/4/12
 *********************************************************************
 *********
 */
@@ -15,12 +15,12 @@
 #ifndef LVGL_APP_DESK_H
 #define LVGL_APP_DESK_H
 #include "ChipArch/SysApp/app_desk/ui/app_desk_ui.h"
-# include "ChipArch/App&UI/AppManage/Application/Application.h"
+# include "ChipArch/AppUI/AppManage/Application/Application.hpp"
 
 
 class app_desk: public Application {
 protected:
-    ap_desk_ui * app_desk_ui_;
+    app_desk_ui * app_desk_ui_;
 public:
     app_desk();
 
@@ -38,14 +38,11 @@ public:
 
     void Destruction() override;
 
-    Page *createNewPage() override;
-
-    void deleteOldPage() override;
 };
 
-class app_desk_pakger:public AppPackage{
+class app_desk_package: public AppPackage{
 public:
-    ~app_desk_pakger() override;
+    ~app_desk_package() override;
 
     void *newApp() override;
 

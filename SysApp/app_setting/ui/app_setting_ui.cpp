@@ -6,14 +6,14 @@
 * @author : zen3
 * @brief : None
 * @attention : None
-* @date : 2024/4/13 
+* @date : 2024/4/13
 *********************************************************************
 *********
 */
 //
 
 #include "app_setting_ui.h"
-#include "ChipArch/ChipArch/ChipArch.h"
+#include "ChipArch/ChipArchChild/ChipArch.h"
 
 app_setting_ui::app_setting_ui(const String & band_page) : Page(band_page) {
 
@@ -26,9 +26,7 @@ void app_setting_ui::exit() {
 
 }
 
-bool app_setting_ui::getScreenOrientation() {
-    return screen_orientation_;
-}
+
 
 void app_setting_ui::initializeSettingUI() {
 
@@ -72,8 +70,8 @@ void app_setting_ui::backBtnCallBack(lv_event_t *e) {
     auto menu =( lv_obj_t *) lv_event_get_user_data(e);
     auto get_user_data=(app_setting_ui *) lv_obj_get_user_data(menu);
     if(lv_menu_back_btn_is_root(menu, obj)) {
-        chip->startApp(home_page_name.c_str());
-        chip->closeApp(get_user_data->getNowAppName().c_str());
+//        chip->startApp(home_page_name.c_str());
+        chip->closeApp(get_user_data->now_app_name_.c_str());
     }
 }
 
@@ -81,9 +79,7 @@ app_setting_ui::~app_setting_ui() {
 
 }
 
-String & app_setting_ui::getNowAppName() {
-    return now_app_name_;
-}
+
 
 
 

@@ -6,15 +6,16 @@
 #ifndef _SQUARELINE_PROJECT_UI_H
 #define _SQUARELINE_PROJECT_UI_H
 
-#include "ChipArch/App&UI/PageManage/PageManage.h"
-#include "ChipArch/App&UI/AppManage/ApplicationManage/ApplicationManage.h"
+#include "ChipArch/AppUI/PageManage/PageManage.h"
+#include "ChipArch/AppUI/AppManage/ApplicationManage/ApplicationManage.h"
+#include "ChipArch/AppUI/PageManage/PageManage.h"
 
 class AppPackage;
 LV_IMG_DECLARE( ui_img_launchbackground1_png);   // assets\launchBackground1.png
 LV_IMG_DECLARE( ui_img_wifi_png);   // assets\WIFI.png
 LV_IMG_DECLARE( ui_img_ble_png);   // assets\BLE.png
 
-class ap_desk_ui: public Page{
+class app_desk_ui: public Page{
 private:
     struct DeskDraw{
         lv_obj_t * plank_;
@@ -37,17 +38,17 @@ private:
     DeskDraw draw_desk_attribute;
 
 public:
-    ap_desk_ui(const String &band_app_);
+    explicit app_desk_ui(const String &band_app_);
 
     void init() override;
 
     void exit() override;
 
-    bool getScreenOrientation() override;
 
-    ~ap_desk_ui() override;
 
-    String & getNowAppName() override;
+    ~app_desk_ui() override;
+
+
 
 
 protected:
@@ -66,10 +67,10 @@ protected:
 
     void deleteResources() ;
 public:
-    void drawDeskIcon( etl::map<String, AppPackage*, max_app_num> &list);
+    void drawDeskIcon();
 
     void scrollLeft();
-    
+
     void scrollRight();
 
     void scrollOpen();

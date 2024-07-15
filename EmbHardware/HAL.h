@@ -15,10 +15,12 @@
 #ifndef LVGL_HAL_H
 #define LVGL_HAL_H
 
-#include "lvgl/lvgl.h"
+#include "lvgl.h"
+#include "ChipArch/vendor/spdlog/include/spdlog/spdlog.h"
 #include "ChipArch/vendor/OtherLib/WString.h"
-#include "ChipArch/ChipArch/Display_interface/DisplayInterface.h"
-#include "ChipArch/ChipArch/Input_device_interface/InputDeviceInterface.h"
+#include "ChipArch/AppUI/utils/lvglpp/core/log.h"
+#include "Display_interface/DisplayInterface.h"
+#include "Input_device_interface/InputDeviceInterface.h"
 
 class HAL {
 private:
@@ -28,6 +30,7 @@ protected:
 
     static InputDeviceGroup * InputDeviceGroup_;
 
+    static fileSystemInterface * FileInterface_;
 public:
     HAL()=default;
 
@@ -38,6 +41,8 @@ public:
     static bool check();
 
     static void destroy();
+
+
 
     static DisplayInterface *getDisplayInterface();
 
@@ -50,17 +55,28 @@ public:
 
     static bool Inject(HAL * inject,char letter='0');//注入
 
-    static void Delay(unsigned long milliseconds) ;
-    virtual void delay(unsigned long milliseconds);
+    static void Delay(unsigned long milliseconds);
 
+#if ESP32&&MCU
+    virtual void delay_ms(unsigned long milliseconds);
+#else
+    virtual void delay(unsigned long milliseconds);
+#endif
     static void Display(lv_disp_drv_t * disp_drv, const lv_area_t * area, lv_color_t * color_p) ;
     virtual void display(lv_disp_drv_t * disp_drv, const lv_area_t * area, lv_color_t * color_p);
 
     static void KeyBoardRead(lv_indev_data_t * data);
     virtual void keyboard_read( lv_indev_data_t * data);
-
+#if COMPUTER
     static void  MousePointRead(lv_indev_data_t * data);
     virtual void mouse_point_read( lv_indev_data_t * data);
+#elif MCU
+    static void  TouchpadPointRead(lv_indev_data_t * data);
+    virtual void touchpad_point_read( lv_indev_data_t * data);
+#endif
+    static void UpDate();
+    virtual void up_date();
+
 };
 
 

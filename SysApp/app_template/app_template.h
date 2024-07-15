@@ -15,7 +15,8 @@
 #ifndef LVGL_APP_TEMPLATE_H
 #define LVGL_APP_TEMPLATE_H
 #include "ui/app_template_ui.h"
-# include "ChipArch/App&UI/AppManage/Application/Application.h"
+#if 1
+# include "ChipArch/AppUI/AppManage/Application/Application.hpp"
 
 class app_template: public Application{
 protected:
@@ -35,9 +36,6 @@ public:
 
     void Destruction() override;
 
-    Page *createNewPage() override;
-
-    void deleteOldPage() override;
 };
 
 class app_template_package:public AppPackage{
@@ -54,5 +52,5 @@ public:
 
     void *getCustomData() override;
 };
-
+#endif
 #endif //LVGL_APP_TEMPLATE_H

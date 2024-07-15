@@ -6,7 +6,7 @@
 * @author : zen3
 * @brief : None
 * @attention : None
-* @date : 2024/4/13 
+* @date : 2024/4/13
 *********************************************************************
 *********
 */
@@ -15,7 +15,7 @@
 #ifndef LVGL_APP_SETTING_UI_H
 #define LVGL_APP_SETTING_UI_H
 //#include "ChipArch/ChipArch/Input_device_interface/InputDeviceInterface.h"
-#include "ChipArch/App&UI/PageManage/PageManage.h"
+#include "ChipArch/AppUI/PageManage/PageManage.h"
 
 class app_setting_ui: public Page{
 public:
@@ -26,11 +26,6 @@ public:
     void init() override;
 
     void exit() override;
-
-    bool getScreenOrientation() override;
-
-    String & getNowAppName() override;
-
 
 protected:
     struct Draw{

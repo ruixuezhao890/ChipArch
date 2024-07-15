@@ -6,7 +6,7 @@
 * @author : zen3
 * @brief : None
 * @attention : None
-* @date : 2024/4/12 
+* @date : 2024/4/12
 *********************************************************************
 *********
 */
@@ -15,15 +15,13 @@
 #ifndef LVGL_APP_SETTING_H
 #define LVGL_APP_SETTING_H
 
-#include "ChipArch/App&UI/AppManage/Application/Application.h"
+#include "ChipArch/AppUI/AppManage/Application/Application.hpp"
 #include "ChipArch/SysApp/app_setting/ui/app_setting_ui.h"
 
 class app_setting :public Application{
-   app_setting_ui* app_setting_ui_;
+   app_setting_ui* app_setting_ui_{};
 public:
     app_setting();
-
-    app_setting(Application * band_app);
 
     ~app_setting() override;
 
@@ -38,15 +36,10 @@ public:
     void pause() override;
 
     void Destruction() override;
-
-    Page *createNewPage() override;
-
-    void deleteOldPage() override;
-
 };
-class app_setting_pakger:public AppPackage{
+class app_setting_package: public AppPackage{
 public:
-    ~app_setting_pakger() override;
+    ~app_setting_package() override;
 
     void *newApp() override;
 
