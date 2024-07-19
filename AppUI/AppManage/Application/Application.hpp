@@ -20,14 +20,14 @@
 
 class AppPackage {
 private:
-    void * framework_;
+    void * user_data_;
 public:
-    AppPackage() : framework_(nullptr) {}
+    AppPackage() : user_data_(nullptr) {}
     virtual ~AppPackage() = default;
 
     // Framework pointer
-    inline void setFramwork(void* userData) { framework_ = userData; }
-    inline void* getFramwork() { return framework_; }
+    inline void setUserData(void* userData) { user_data_ = userData; }
+    inline void* getUserData() { return user_data_; }
 
     // Self pointer
     inline AppPackage* getAddr() { return this; }
@@ -57,15 +57,15 @@ class Application{
         bool go_destroy = false;
     };
 protected:
-    void * framework_{};
-
     AppPackage * app_package_;
 
     Page * page_;
 
-    State_t _state;
+    State_t state_;
 public:
-    Application():app_package_(nullptr),page_(nullptr) { };
+    Application():app_package_(nullptr),page_(nullptr){
+
+    };
 
     virtual ~Application()=default;
 
@@ -78,22 +78,22 @@ public:
 
     inline void* getAppIcon() { return getAppPacker()->getAppIcon(); }
     inline void* getCustomData() { return getAppPacker()->getCustomData(); }
-    inline void* getFramwork() { return getAppPacker()->getFramwork(); }
+    inline void* get_packer_userdata() { return getAppPacker()->getUserData(); }
 
-    inline void set(void * userData){framework_=userData;}
+    inline void set_packer_userdata(void * userData){getAppPacker()->setUserData(userData);}
 
-    inline bool isAllowBgRunning() { return  _state.allow_bg_running;}
-    inline bool isGoingStart() { return _state.go_start; }
-    inline bool isGoingClose() { return _state.go_close; }
-    inline bool isGoingDestroy() { return _state.go_destroy; }
-    inline void resetGoingStartFlag() { _state.go_start = false; }
-    inline void resetGoingCloseFlag() { _state.go_close = false; }
-    inline void resetGoingDestroyFlag() { _state.go_destroy = false; }
+    inline bool isAllowBgRunning() { return  state_.allow_bg_running;}
+    inline bool isGoingStart() { return state_.go_start; }
+    inline bool isGoingClose() { return state_.go_close; }
+    inline bool isGoingDestroy() { return state_.go_destroy; }
+    inline void resetGoingStartFlag() { state_.go_start = false; }
+    inline void resetGoingCloseFlag() { state_.go_close = false; }
+    inline void resetGoingDestroyFlag() { state_.go_destroy = false; }
 protected:
-    inline void setAllowBgRunning(bool allow) { _state.allow_bg_running = allow; }
-    inline void startApp() { _state.go_start = true; }
-    inline void closeApp() { _state.go_close = true; }
-    inline void destroyApp() { _state.go_destroy = true; }
+    inline void setAllowBgRunning(bool allow) { state_.allow_bg_running = allow; }
+    inline void startApp() { state_.go_start = true; }
+    inline void closeApp() { state_.go_close = true; }
+    inline void destroyApp() { state_.go_destroy = true; }
 public:
     virtual void creat()=0;//为应用所需的资源申请空间或者加载应用所需的数据文件
 

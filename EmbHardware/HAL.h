@@ -21,10 +21,18 @@
 #include "ChipArch/AppUI/utils/lvglpp/core/log.h"
 #include "Display_interface/DisplayInterface.h"
 #include "Input_device_interface/InputDeviceInterface.h"
-
+#if IMU
+struct ImuData_t
+{
+    float accelX;
+    float accelY;
+    float accelZ;
+};
+#endif
 class HAL {
 private:
     static HAL * hal_;
+    ImuData_t imu_data_={};
 protected:
     static DisplayInterface * DisplayInterface_;
 
@@ -41,8 +49,6 @@ public:
     static bool check();
 
     static void destroy();
-
-
 
     static DisplayInterface *getDisplayInterface();
 
@@ -75,8 +81,48 @@ public:
     virtual void touchpad_point_read( lv_indev_data_t * data);
 #endif
     static void UpDate();
-    virtual void up_date();
+    virtual void update();
 
+    static unsigned long Millis() ;
+    virtual unsigned long millis();
+
+
+    static void PowerOff() ;
+    virtual void powerOff();
+
+
+    static void Reboot() ;
+    virtual void reboot();
+
+
+    //这个函数的参数待定
+    static void VolumeStart();
+    virtual void volumeStart() ;
+
+    static void VolumeStop();
+    virtual void volumeStop() ;
+
+
+    static void SetVolume(uint8_t volume);
+    virtual void setVolume(uint8_t volume) ;
+
+    static bool CheckSdCard();
+    virtual bool checkSdCard();
+
+    //抛个蓝屏
+    static void PopFatalError( const String& msg) ;
+    virtual void popFatalError(const String& msg);
+
+    static bool GetAnyButton();
+    virtual bool getAnyButton();
+
+#if IMU
+    static void UpdateImuData();
+    virtual void updateImuData();
+
+    static ImuData_t& GetImuData();
+    ImuData_t& getImuData();
+#endif
 };
 
 

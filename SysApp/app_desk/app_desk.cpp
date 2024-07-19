@@ -12,9 +12,9 @@
 */
 
 #include "app_desk.h"
+#include "ChipArch/ChipArchChild/ChipArch.h"
 
 
-static void desk_call_back(lv_event_t * event);
 
 app_desk::app_desk() : Application(){
 
@@ -29,44 +29,44 @@ void app_desk::creat() {
 }
 
 void app_desk::resume() {
-    LV_LOG_USER("resume Running\n");
+    spdlog::info("resume Running\n");
     app_desk_ui_->drawDeskIcon();
 }
 
 void app_desk::running() {
-//    LV_LOG("desk Running\n");
+    spdlog::info("desk Running\n");
 
-//    lv_indev_data_t getKey{};
-//    HAL::KeyBoardRead(&getKey);
+    lv_indev_data_t getKey{};
+    HAL::KeyBoardRead(&getKey);
 
-//    if (getKey.key) {
-//        LV_LOG("getKey: %d\n", getKey.key);
-//        switch (getKey.key) {
-//            case 19: // Right
-//                app_desk_ui_->scrollRight();
-//                break;
-//            case 20: // Left
-//                app_desk_ui_->scrollLeft();
-//                break;
-//            case 10: // Select
-//                app_desk_ui_->scrollOpen();
-//                break;
-//            default:
-//                break;
-//        }
-//    }
+    if (getKey.key) {
+        spdlog::info("getKey: %d\n", getKey.key);
+        switch (getKey.key) {
+            case 19: // Right
+                app_desk_ui_->scrollRight();
+                break;
+            case 20: // Left
+                app_desk_ui_->scrollLeft();
+                break;
+            case 10: // Select
+                app_desk_ui_->scrollOpen();
+                break;
+            default:
+                break;
+        }
+    }
 
     HAL::Delay(500);
 }
 
 void app_desk::backRunning() {
-//    LV_LOG("back app_setting Running\n");
-//    usleep(500);
-//
-//    if (chipArch_->getApplicationManage()->getCreateAppNum() == 1) {
-//        LV_LOG("back to desk\n");
-//        chipArch_->getApplicationManage()->startApplication(this->getAppName());
-//    }
+    spdlog::info("back app_setting Running\n");
+    HAL::Delay(500);
+
+    if (ChipArch::getOrCreateChipArch()->getApplicationManage()->getCreateAppNum() == 1) {
+        spdlog::info("back to desk\n");
+        ChipArch::getOrCreateChipArch()->getApplicationManage()->startApplication(this->getAppName());
+    }
 }
 
 void app_desk::pause() {}
@@ -93,19 +93,4 @@ void* app_desk_package::getAppIcon() {
 
 void* app_desk_package::getCustomData() {
     return AppPackage::getCustomData();
-}
-
-void desk_call_back(lv_event_t * event) {
-//    lv_event_code_t eventCode = lv_event_get_code(event);
-//
-//    switch (eventCode) {
-//        case LV_EVENT_CLICKED:
-//            break;
-//        case LV_EVENT_SCROLL_BEGIN:
-//            uint16_t num = eventCode;
-//            LV_LOG("num: %d\n", num);
-//            break;
-//        default:
-//            break;
-//    }
 }

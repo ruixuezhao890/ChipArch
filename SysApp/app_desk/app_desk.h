@@ -20,7 +20,7 @@
 
 class app_desk: public Application {
 protected:
-    app_desk_ui * app_desk_ui_;
+    app_desk_ui * app_desk_ui_= nullptr;
 public:
     app_desk();
 

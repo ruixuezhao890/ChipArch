@@ -90,7 +90,7 @@ void app_desk_ui::drawDeskIcon() {
 
      draw_desk_attribute.plank_= lv_obj_create(now_page_);
 
-    draw_desk_attribute.map_=&ChipArch::chipArchObtain()->getInstalledAppList();
+    draw_desk_attribute.map_=&ChipArch::getOrCreateChipArch()->getInstalledAppList();
 
     lv_obj_set_size(draw_desk_attribute.plank_, 320, 150); //设置cont的尺寸： w200, h200  （正方形）
     lv_obj_align(draw_desk_attribute.plank_, LV_ALIGN_CENTER, 0, -20);//让cont垂直水平居中（相对于父级）
@@ -177,7 +177,7 @@ void app_desk_ui::openDeskIcon(lv_event_t * e) {
         LV_LOG_USER("Click %d\n", lv_event_get_code(e));
         LV_LOG_USER("user_data %s\n", user_data);
 
-        ChipArch * chip_arch = ChipArch::chipArchObtain();
+        ChipArch * chip_arch = ChipArch::getOrCreateChipArch();
         auto get_app_pack = chip_arch->getInstalledAppList();
         chip_arch->creatStartApp(get_app_pack[user_data]);
         chip_arch->closeApp(home_page_name.c_str());

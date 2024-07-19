@@ -32,21 +32,23 @@ protected:
     Data data_{};
 private:
     static ChipArch* chipArch_;
+    //todo 微型数据库指针 静态的指针
+
     ChipArch(){};
 
 public:
-    static ChipArch * chipArchObtain();
+    static ChipArch * getOrCreateChipArch();
 
     void init();
 
     void freeComponents() const;
 
-    void welcomeLog() const;
+    static void welcomeLog() ;
 
-    void update();
+    void update() const;
 public:
     ~ChipArch();
-    inline   etl::map<String,AppPackage*,max_app_num>& getInstalledAppList(){return data_.app_register_->getInstalledAppList();}
+    inline   etl::map<String,AppPackage*,max_app_num>& getInstalledAppList() const{return data_.app_register_->getInstalledAppList();}
 
     inline ApplicationManage *getApplicationManage() const{ return data_.application_manage_;};
 

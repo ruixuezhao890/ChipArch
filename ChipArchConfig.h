@@ -29,7 +29,7 @@
 #define ESP32 1
 #define TOUCH 0
 #define COMPUTER 1
-
+#define IMU 1
 #define LVGL_UPDATA_TIME (1*1000)
 
 /*****Number of buffers*****/

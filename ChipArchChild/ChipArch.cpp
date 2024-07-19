@@ -24,7 +24,7 @@ static const char* chip_arch_logo = R"(
     C      H   H   I    PPPPP AAAAA  RRRRR  C      H   H
     CCCCC  H   H IIIII  P     A   A  R   R  CCCCC  H   H
 )";
-ChipArch *ChipArch::chipArchObtain() {
+ChipArch *ChipArch::getOrCreateChipArch() {
     if (chipArch_){
         return chipArch_;
     }
@@ -39,25 +39,23 @@ void ChipArch::freeComponents() const {
         delete data_.app_register_;
         delete data_.application_manage_;
         delete data_.page_manage_;
-   LV_LOG("ChipArchChild destroyed");
-   LV_LOG("bye :)");
+    spdlog::warn("ChipArch destroyed");
+    spdlog::info("bye :)");
 }
 
 void ChipArch:: init() {
-    // todo 日志库输出信息 ：正在初始化
     spdlog::info("ChipArch Initializing\n");
     if (data_.application_manage_){
-       // todo 串口或任意设备输出信息
         spdlog::info("ChipArch ReInitializing\n");
        freeComponents();
     }
-//    SentinelLog::log::initLog();
     data_.app_register_=new AppRegister();
     data_.application_manage_=new ApplicationManage();
+    uninstallAppAll();
     welcomeLog();
 }
 
-void ChipArch::welcomeLog() const {
+void ChipArch::welcomeLog() {
     printf("%s", chip_arch_logo);
     printf("\n- @author zen3\n");
     printf("- @version:%s\n",version);
@@ -66,15 +64,12 @@ void ChipArch::welcomeLog() const {
 
 ChipArch::~ChipArch() {
     freeComponents();
-   LV_LOG("ChipArch destroyed");
-   LV_LOG("bye :)");
+
 }
 
-void ChipArch::update() {
-    lv_timer_handler();
+void ChipArch::update() const {
+    HAL::UpDate();
     data_.application_manage_->applicationUpData();
-    HAL::Delay(LVGL_UPDATA_TIME);
-
 }
 
 String ChipArch::installApp(AppPackage *installApp) {

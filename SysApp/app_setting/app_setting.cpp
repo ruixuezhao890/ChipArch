@@ -14,7 +14,6 @@
 
 #include "app_setting.h"
 #include "ui/app_setting_ui.h"
-//#include "ChipArch/ChipArch/ChipArch.h"
 #include "ChipArch/SysApp/app_setting/assets/icon_app_settings.hpp"
 app_setting::app_setting():Application() {
 
@@ -38,12 +37,12 @@ void app_setting::resume() {
 }
 
 void app_setting::running() {
-   LV_LOG("app_setting Running\n");
+   spdlog::debug("app_setting Running\n");
    HAL::Delay(500);
 }
 
 void app_setting::backRunning() {
-    LV_LOG("back app_setting Running\n");
+    spdlog::debug("back app_setting Running\n");
     HAL::Delay(500);
 }
 

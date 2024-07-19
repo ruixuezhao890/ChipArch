@@ -16,7 +16,7 @@
 #include "../../EmbHardware/HAL.h"
 
 #if COMPUTER
-#include "ChipArch/EmbHardware/Solitude/Solitude.h"
+
 #endif
 void DisplayInterface::flush(const lv_area_t *area, lv_color_t *color_map) {
     HAL::getHal()->display(this->raw_ptr()->driver,area,color_map);

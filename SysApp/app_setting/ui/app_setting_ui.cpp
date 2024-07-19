@@ -66,7 +66,7 @@ void app_setting_ui::initializeSettingUI() {
 
 void app_setting_ui::backBtnCallBack(lv_event_t *e) {
     lv_obj_t * obj = lv_event_get_target(e);
-    auto chip=ChipArch::chipArchObtain();
+    auto chip= ChipArch::getOrCreateChipArch();
     auto menu =( lv_obj_t *) lv_event_get_user_data(e);
     auto get_user_data=(app_setting_ui *) lv_obj_get_user_data(menu);
     if(lv_menu_back_btn_is_root(menu, obj)) {
