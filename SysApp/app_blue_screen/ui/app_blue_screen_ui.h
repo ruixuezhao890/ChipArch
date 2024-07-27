@@ -2,7 +2,7 @@
 *********************************************************************
 *********
 * @project_name :lvgl
-* @file : app_template_ui.h
+* @file : app_blue_screen_ui.h
 * @author : zen3
 * @brief : None
 * @attention : None
@@ -17,21 +17,23 @@
 #include "ChipArch/AppUI/PageManage/PageManage.h"
 #include "ChipArch/AppUI/AppManage/ApplicationManage/ApplicationManage.h"
 
-class app_template_ui : public Page{
+class app_blue_screen_ui : public Page{
     //External access to parts that want to change properties should be declared here
     struct widgets{
         Label * error_label;
     };
 public:
-    widgets widgets_;
+   widgets widgets_;
 
-    explicit app_template_ui(const String& band);
+    explicit app_blue_screen_ui(const String& band);
 
-    ~app_template_ui() override;
+    ~app_blue_screen_ui() override;
 
     void init() override;
 
     void exit() override;
+
+    void monitorMessageUpdates();
 };
 
 

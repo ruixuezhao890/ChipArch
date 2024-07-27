@@ -348,7 +348,7 @@ class FMT_API file {
   // necessary.
   void dup2(int fd, std::error_code& ec) noexcept;
 
-  // Creates a pipe setting up read_end and write_end file objects for reading
+  // Creates a pipe.txt setting up read_end and write_end file objects for reading
   // and writing respectively.
   static void pipe(file& read_end, file& write_end);
 

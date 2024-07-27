@@ -42,12 +42,15 @@ bool HAL::Inject(HAL *inject, char letter) {
         return false;
     }
     inject->init();
+
     spdlog::set_level(spdlog::level::debug);
+
     initInputDevice(letter);
 
     spdlog::info("HAL injected, type:{}", inject->type().c_str());
-//    LV_LOG();
-
+//如果想要使用行号之类的标志使用
+//SPDLOG_LOGGER_INFO(spdlog::default_logger(), "Hello {}", "world");
+//这个宏函数就可以得到行号
     hal_ = inject;
 
     return true;
@@ -174,11 +177,11 @@ bool HAL::checkSdCard() {
     return false;
 }
 
-void HAL::VolumeStart() {
-    getHal()->volumeStart();
+void HAL::VolumeStart(const String& filePath) {
+    getHal()->volumeStart(filePath);
 }
 
-void HAL::volumeStart() {
+void HAL::volumeStart( const String& filePath) {
 
 }
 
@@ -207,7 +210,7 @@ void HAL::updateImuData() {
 }
 
 ImuData_t &HAL::GetImuData() {
-    getHal()->getImuData();
+    return getHal()->getImuData();
 }
 
 ImuData_t &HAL::getImuData() {
@@ -215,7 +218,7 @@ ImuData_t &HAL::getImuData() {
 }
 #endif
 unsigned long HAL::Millis() {
-    getHal()->millis();
+    return getHal()->millis();
 }
 
 unsigned long HAL::millis() {

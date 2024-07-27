@@ -20,11 +20,9 @@ app_desk::app_desk() : Application(){
 
 }
 
-app_desk::~app_desk() = default;
+app_desk::~app_desk(){delete app_desk_ui_;};
 
 void app_desk::creat() {
-    app_desk_ui_=new app_desk_ui(getAppName());
-    setPage(app_desk_ui_);
     setAllowBgRunning(true);
 }
 
@@ -60,7 +58,7 @@ void app_desk::running() {
 }
 
 void app_desk::backRunning() {
-    spdlog::info("back app_setting Running\n");
+    spdlog::info("back app_desk Running\n");
     HAL::Delay(500);
 
     if (ChipArch::getOrCreateChipArch()->getApplicationManage()->getCreateAppNum() == 1) {
@@ -72,6 +70,11 @@ void app_desk::backRunning() {
 void app_desk::pause() {}
 
 void app_desk::Destruction() {}
+
+void app_desk::initPage() {
+    app_desk_ui_=new app_desk_ui(getAppName());
+    setPage(app_desk_ui_);
+}
 
 app_desk_package::~app_desk_package() = default;
 

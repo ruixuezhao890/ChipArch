@@ -14,9 +14,7 @@
 
 #include "AppRegister.h"
 
-AppRegister::~AppRegister() {
-
-}
+AppRegister::~AppRegister() = default;
 
 bool AppRegister::install(AppPackage *appPacker, void *framwork) {
     if (appPacker == nullptr)
@@ -25,7 +23,7 @@ bool AppRegister::install(AppPackage *appPacker, void *framwork) {
     if (isAppInstalled(appPacker))
         return false;
 
-    appPacker->setFramwork(framwork);
+    appPacker->setWorkShop(framwork);
 
     /* Push into list */
    _app_packer_list[appPacker->getAppName()]=appPacker->getAddr();

@@ -56,10 +56,14 @@ void ChipArch:: init() {
 }
 
 void ChipArch::welcomeLog() {
-    printf("%s", chip_arch_logo);
-    printf("\n- @author zen3\n");
-    printf("- @version:%s\n",version);
-    printf("- @build at " __TIME__ " " __DATE__ "\n\n");
+    spdlog::info(chip_arch_logo);
+    spdlog::info("- @author zen3\n");
+    spdlog::info("- @version:%s\n",version);
+    spdlog::info("- @build at " __TIME__ " " __DATE__ "\n\n");
+//    printf("%s", chip_arch_logo);
+//    printf("\n- @author zen3\n");
+//    printf("- @version:%s\n",version);
+//    printf("- @build at " __TIME__ " " __DATE__ "\n\n");
 }
 
 ChipArch::~ChipArch() {

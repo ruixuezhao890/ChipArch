@@ -20,11 +20,13 @@
 
 class app_desk: public Application {
 protected:
-    app_desk_ui * app_desk_ui_= nullptr;
+    app_desk_ui *  app_desk_ui_;
 public:
     app_desk();
 
     ~app_desk() override;
+
+    void initPage() override;
 
     void creat() override;
 

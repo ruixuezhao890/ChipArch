@@ -1,6 +1,7 @@
 #include "app_desk_ui.h"
 #include "ChipArch/ChipArchChild/ChipArch.h"
 #include "ChipArch/SysApp/app_desk/assets/icon_app_default.hpp"
+
 app_desk_ui::app_desk_ui(const String &band_app_) : Page(band_app_) {
 
 }
@@ -109,7 +110,8 @@ void app_desk_ui::drawDeskIcon() {
 
     if (draw_desk_attribute.map_->size()>1) {
         for (auto &item: *draw_desk_attribute.map_) {
-            if (!item.second || String(item.second->getAppName()) == home_page_name) {
+            if (!item.second || String(item.second->getAppName()) == home_page_name
+            ||!item.second->getAllowDisplayIcon()) {
                 continue;
             }
             draw_desk_attribute.app_name_Vec_.push_back(item.first);
@@ -178,8 +180,8 @@ void app_desk_ui::openDeskIcon(lv_event_t * e) {
         LV_LOG_USER("user_data %s\n", user_data);
 
         ChipArch * chip_arch = ChipArch::getOrCreateChipArch();
-        auto get_app_pack = chip_arch->getInstalledAppList();
-        chip_arch->creatStartApp(get_app_pack[user_data]);
+//        auto get_app_pack = chip_arch->getInstalledAppList();
+        chip_arch->startApp(user_data);
         chip_arch->closeApp(home_page_name.c_str());
     }
 }

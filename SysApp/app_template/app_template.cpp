@@ -13,8 +13,8 @@
 //
 
 #include "app_template.h"
-#if 1
-app_template::~app_template() = default;
+
+
 
 void app_template::creat() {
 
@@ -40,25 +40,35 @@ void app_template::Destruction() {
 
 }
 
+void app_template::initPage() {
+    app_template_ui_=new app_template_ui(getAppName());
+    setPage(app_template_ui_);
+}
+
+app_template::~app_template() {
+    delete app_template_ui_;
+    app_template_ui_= nullptr;
+}
+
+
 app_template_package::~app_template_package() = default;
 
 void *app_template_package::newApp() {
-    return AppPackage::newApp();
+    return new app_template();
 }
 
 void app_template_package::deleteApp(void *app) {
-    AppPackage::deleteApp(app);
+    delete static_cast<app_template *>(app);
 }
 
 const char *app_template_package::getAppName() {
-    return AppPackage::getAppName();
+    return "template";
 }
 
 void *app_template_package::getAppIcon() {
-    return AppPackage::getAppIcon();
+    return nullptr;
 }
 
 void *app_template_package::getCustomData() {
-    return AppPackage::getCustomData();
+    return nullptr;
 }
-#endif

@@ -15,10 +15,10 @@
 #ifndef LVGL_HAL_H
 #define LVGL_HAL_H
 
-#include "lvgl.h"
+
+#include "../../ChipArchConfig.h"
 #include "ChipArch/vendor/spdlog/include/spdlog/spdlog.h"
 #include "ChipArch/vendor/OtherLib/WString.h"
-#include "ChipArch/AppUI/utils/lvglpp/core/log.h"
 #include "Display_interface/DisplayInterface.h"
 #include "Input_device_interface/InputDeviceInterface.h"
 #if IMU
@@ -94,10 +94,8 @@ public:
     static void Reboot() ;
     virtual void reboot();
 
-
-    //这个函数的参数待定
-    static void VolumeStart();
-    virtual void volumeStart() ;
+    static void VolumeStart( const String& filePath);
+    virtual void volumeStart(const String& filePath);
 
     static void VolumeStop();
     virtual void volumeStop() ;
@@ -109,7 +107,8 @@ public:
     static bool CheckSdCard();
     virtual bool checkSdCard();
 
-    //抛个蓝屏
+    //todo 将蓝屏封装为一个软件 通过软件来抛出蓝屏 为了不直接调用底层接口使用lvgl进行抛出蓝屏
+    //todo 通过软件调用也符合整体的解耦逻辑 通过设置开启还是关闭的标志位进行抛出
     static void PopFatalError( const String& msg) ;
     virtual void popFatalError(const String& msg);
 

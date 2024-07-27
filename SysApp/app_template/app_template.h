@@ -24,6 +24,8 @@ protected:
 public:
     ~app_template() override;
 
+    void initPage() override;
+
     void creat() override;
 
     void resume() override;

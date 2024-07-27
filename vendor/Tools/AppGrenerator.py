@@ -101,7 +101,7 @@ def createApp():
 def installApp():
     global app_name
     old_substring = r"\vendor"
-    new_substring_s = r"\App&UI\AppInstall\AppInstall.hpp"
+    new_substring_s = r"\AppUI\AppInstall\AppInstall.hpp"
     print("install app {}".format(app_name))
 
     # 获取基础路径
@@ -138,16 +138,22 @@ def installApp():
     # 替换应用安装标记
     content_app_install_cb_file = content_app_install_cb_file.replace(
         app_install_tag,
-        " chipArch->installApp(new app_{}_package);\n    {}".format(app_name.capitalize().lower(), app_install_tag)
+        "auto {}= chipArch->installApp(new app_{}_package);\n  chipArch->creatApp({}.c_str());\n   {}".format(
+            app_name.capitalize().lower(),
+            app_name.capitalize().lower(),
+            app_name.capitalize().lower(),
+            app_install_tag)
     )
 
     # 写回修改后的内容
     with open(path, mode='w') as app_install_cb_file:
         app_install_cb_file.write(content_app_install_cb_file)
 
+
 if __name__ == "__main__":
-    print("ChipArch app generator > <")
-    print("choice S or U")
+    print("ChipArch app generator >.<")
+    print("Do not enter the following characters:_-#@%^&*")
+    print("choice S or U 'S' mean system application 'U' mean user application")
 
     while True:
         choice = input("choice: ")

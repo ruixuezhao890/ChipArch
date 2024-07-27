@@ -16,22 +16,29 @@
 #define MUSICCLION_APPLICATION_H
 #include "../../../EmbHardware/HAL.h"
 #include "../../PageManage/PageManage.h"
-
+#include "ChipArch/AppUI/AppMessagePipe/AppMessagePipe.h"
 
 class AppPackage {
 private:
+    bool allow_display_icon_= true;
     void * user_data_;
+    void * workshop_;
 public:
-    AppPackage() : user_data_(nullptr) {}
+    AppPackage() : user_data_(nullptr),workshop_(nullptr) {}
     virtual ~AppPackage() = default;
 
-    // Framework pointer
+    // UserData pointer
     inline void setUserData(void* userData) { user_data_ = userData; }
     inline void* getUserData() { return user_data_; }
+    //set workshop
+    inline void setWorkShop(void* workshop) { workshop_ = workshop; }
+    inline void* getWorkShop() { return workshop_; }
 
     // Self pointer
     inline AppPackage* getAddr() { return this; }
-
+    // Display icon
+    inline void setAllowDisplayIcon(bool allow){allow_display_icon_=allow;}
+    inline bool getAllowDisplayIcon() const{return  allow_display_icon_;}
     /* ------------------------------- App factory ------------------------------ */
 public:
 
@@ -70,10 +77,16 @@ public:
     virtual ~Application()=default;
 
     inline  void setAppPacker(AppPackage * appPackage){app_package_=appPackage;}
-    inline  void setPage(Page * page){page_=page;}
+
     inline AppPackage* getAppPacker(){return app_package_;}
 
-    inline Page* getPage(){return page_;}
+    inline  void setPage(Page * page){page_=page;}
+
+    template<typename T>
+    inline T* getPage(){return dynamic_cast<T*>(page_);}
+
+    inline Page* getPage(){return (page_);}
+
     inline const char* getAppName() { return app_package_->getAppName(); }
 
     inline void* getAppIcon() { return getAppPacker()->getAppIcon(); }
@@ -90,11 +103,14 @@ public:
     inline void resetGoingCloseFlag() { state_.go_close = false; }
     inline void resetGoingDestroyFlag() { state_.go_destroy = false; }
 protected:
+
     inline void setAllowBgRunning(bool allow) { state_.allow_bg_running = allow; }
     inline void startApp() { state_.go_start = true; }
     inline void closeApp() { state_.go_close = true; }
     inline void destroyApp() { state_.go_destroy = true; }
 public:
+    virtual void initPage()=0;//创建屏幕对象
+
     virtual void creat()=0;//为应用所需的资源申请空间或者加载应用所需的数据文件
 
     virtual void resume()=0;//应用初始化

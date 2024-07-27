@@ -48,6 +48,9 @@ void app_setting_ui::initializeSettingUI() {
     lv_obj_add_event_cb(menu->raw_ptr(), backBtnCallBack, LV_EVENT_CLICKED, menu->raw_ptr());
     menu->set_size(cont->get_width(),cont->get_height());
     menu->center();
+    auto get_chip=ChipArch::getOrCreateChipArch();
+    message_pipe ::addMessage(Error_APP_Label,0,"ERROR");
+    get_chip->startApp(Error_APP_Label.c_str());
 //    lv_obj_clear_flag(now_page_, LV_OBJ_FLAG_SCROLLABLE);
 //    lv_obj_set_style_opa(now_page_, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
 //

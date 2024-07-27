@@ -43,8 +43,10 @@ void ApplicationManage::applicationUpData() {
             pair->second->state=AppState::DESTROY;
         }
         switch (pair->second->state) {
-            case AppState::CREATE:
+            case AppState::CREATE:{
                 break;
+            }
+
             case AppState::RESUME:
                 //切换新界面
                 page_manager_.page_manage_switch_page(pair->second->app->getAppName());
@@ -199,6 +201,7 @@ Application * ApplicationManage::creatApplication(AppPackage * appPackage) {
 
     new_app->setAppPacker(appPackage);
     new_app->creat();
+    new_app->initPage();
     page_manager_.page_manage_add_page(new_app->getPage(),new_app->getAppName());
     auto new_appLifecycle=new AppLifecycle_t;
     new_appLifecycle->state=AppState::CREATE;

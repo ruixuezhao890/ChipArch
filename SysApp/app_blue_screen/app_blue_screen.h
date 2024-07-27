@@ -2,28 +2,29 @@
 *********************************************************************
 *********
 * @project_name :lvgl
-* @file : app_setting.h
+* @file : app_blue_screen.h
 * @author : zen3
 * @brief : None
 * @attention : None
-* @date : 2024/4/12
+* @date : 2024/6/9 
 *********************************************************************
 *********
 */
 //
 
-#ifndef LVGL_APP_SETTING_H
-#define LVGL_APP_SETTING_H
+#ifndef LVGL_APP_TEMPLATE_H
+#define LVGL_APP_TEMPLATE_H
+#include "ui/app_blue_screen_ui.h"
+#if 1
+# include "ChipArch/AppUI/AppManage/Application/Application.hpp"
 
-#include "ChipArch/AppUI/AppManage/Application/Application.hpp"
-#include "ChipArch/SysApp/app_setting/ui/app_setting_ui.h"
-
-class app_setting :public Application{
-   app_setting_ui* app_setting_ui_{};
+class app_blue_screen: public Application{
+protected:
+    app_blue_screen_ui * app_blue_screen_ui_;
 public:
-    app_setting();
 
-    ~app_setting() override;
+
+    ~app_blue_screen() override;
 
     void initPage() override;
 
@@ -38,10 +39,12 @@ public:
     void pause() override;
 
     void Destruction() override;
+
 };
-class app_setting_package: public AppPackage{
+
+class app_blue_screen_package:public AppPackage{
 public:
-    ~app_setting_package() override;
+    ~app_blue_screen_package() override;
 
     void *newApp() override;
 
@@ -52,8 +55,6 @@ public:
     void *getAppIcon() override;
 
     void *getCustomData() override;
-
-
 };
-
-#endif //LVGL_APP_SETTING_H
+#endif
+#endif //LVGL_APP_TEMPLATE_H

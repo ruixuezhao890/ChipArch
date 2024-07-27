@@ -66,16 +66,17 @@ public:
     inline uint8_t getInstallAppNum() const {
         return data_.app_register_->getInstalledAppNum();
     }
-    inline void  creatApp(AppPackage * appPackage)const {
-        data_.application_manage_->creatApplication(appPackage);
+    inline void  creatApp(const char * appName)const {
+        data_.application_manage_->creatApplication(getInstalledAppList()[appName]);
     };
 
     inline void  startApp(const char * appName)const {
         data_.application_manage_->startApplication(appName);
     };
-    inline void creatStartApp(AppPackage * appPackage)const{
-        data_.application_manage_->creatApplication(appPackage);
-        data_.application_manage_->startApplication(appPackage->getAppName());
+    inline void creatStartApp(const char * appName)const{
+        auto app_name=getInstalledAppList()[appName];
+        data_.application_manage_->creatApplication(app_name);
+        data_.application_manage_->startApplication(appName);
     }
     inline void closeApp(const char * appName)const{
         data_.application_manage_->closeApplication(appName);

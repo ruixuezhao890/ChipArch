@@ -15,7 +15,6 @@
 #ifndef LVGL_INPUTDEVICEINTERFACE_H
 #define LVGL_INPUTDEVICEINTERFACE_H
 #include "lvgl.h"
-#include "../../ChipArchConfig.h"
 #include "../../AppUI/utils/lvglpp/core/log.h"
 #include "../../AppUI/utils/lvglpp/core/indev.h"//for input
 #include "../../AppUI/utils/lvglpp/core/object.h"// for Object

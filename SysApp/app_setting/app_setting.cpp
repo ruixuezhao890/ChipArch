@@ -25,9 +25,7 @@ app_setting::~app_setting() = default;
 
 
 void app_setting::creat() {
-    app_setting_ui_=new app_setting_ui(getAppName());
-    setPage(app_setting_ui_);
-    setAllowBgRunning(true);
+    setAllowBgRunning(false);
 
 }
 
@@ -52,6 +50,11 @@ void app_setting::pause() {
 
 void app_setting::Destruction() {
 
+}
+
+void app_setting::initPage() {
+    app_setting_ui_=new app_setting_ui(getAppName());
+    setPage(app_setting_ui_);
 }
 
 app_setting_package::~app_setting_package() = default;
