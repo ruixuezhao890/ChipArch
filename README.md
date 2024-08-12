@@ -91,7 +91,7 @@ The multi-application life cycle scheduling framework developed for single-chip 
 
 * 如果你想创建一个应用 ，文件夹中存在一个python文件可以自动化完成这一切操作你只需要选择是创建系统应用还是用户应用即可，会自动添加至调用函数中，进行创建与安装。具体操作如下：
 
-​		![image-20240812225106356](D:\lvgl\lvgl_template_v8.3\ChipArch\git_src\git_pic\pic1.png)
+​		![image-20240812225106356](git_src/git_pic/pic1.png)
 
 右键运行它，运行之后会出现：choice S or U 'S' mean system application 'U' mean user application。这个提示，就是选择系统还是用户，在出现它之前还会提示不要输入一些字符否则会出错，就算出错了，删除生成的文件夹，再次按照正确的步骤进行生成即可。
 
@@ -99,21 +99,21 @@ The multi-application life cycle scheduling framework developed for single-chip 
 
 创建完成之后，创建出来的应用目录结构如下：（这里以用户应用desk为例子）
 
-<img src="D:\lvgl\lvgl_template_v8.3\ChipArch\git_src\git_pic\pic2.png" alt="pic2" style="zoom:0%;" />
+<img src="git_src\git_pic\pic2.png" alt="pic2" style="zoom:0%;" />
 
 在创建完成之后会出一个package结尾的类：
 
-<img src="D:\lvgl\lvgl_template_v8.3\ChipArch\git_src\git_pic\pic3.png" alt="pic3" style="zoom: 67%;" />
+<img src="git_src\git_pic\pic3.png" alt="pic3" style="zoom: 67%;" />
 
 
 
 app本体类：
 
-<img src="D:\lvgl\lvgl_template_v8.3\ChipArch\git_src\git_pic\pic4.png" alt="pic4" style="zoom:50%;" />
+<img src="git_src\git_pic\pic4.png" alt="pic4" style="zoom:50%;" />
 
 app的界面类：
 
-<img src="D:\lvgl\lvgl_template_v8.3\ChipArch\git_src\git_pic\pic5.png" alt="pic5" style="zoom:67%;" />
+<img src="git_src\git_pic\pic5.png" alt="pic5" style="zoom:67%;" />
 
 依据函数的名称，完成对应的功能，app就算成功了
 
