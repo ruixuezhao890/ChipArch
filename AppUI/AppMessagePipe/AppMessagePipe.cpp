@@ -6,14 +6,14 @@
 * @author : zen3
 * @brief : None
 * @attention : None
-* @date : 2024/7/25 
+* @date : 2024/7/25
 *********************************************************************
 *********
 */
 //
 
 #include "AppMessagePipe.h"
-#include "spdlog/spdlog.h"
+//#include "spdlog/spdlog.h"
 
 multimap<String,MessageDataMap,MESSAGE_NUM>AppMessagePipe:: container;
 
@@ -54,8 +54,8 @@ pair<bool, String> AppMessagePipe::getMessage(const String& appName,uint8_t id) 
 #if FREERTOS
         //退出临界区
 #endif
-
-            return std::make_pair(true, get_message);
+            etl::pair<bool,String> t(true, get_message);
+            return t;
         }
     }
 
@@ -138,7 +138,6 @@ MessageDataMap  AppMessagePipe::getAllMessages(const String &appName) {
         dataMap.insert(pair<uint8_t,String>(it->first,it->second));
          i++;
     }
-    spdlog::info(i);
     removeSpecifiedMessages(appName);
     return dataMap;
 }

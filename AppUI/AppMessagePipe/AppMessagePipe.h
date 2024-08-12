@@ -6,7 +6,7 @@
 * @author : zen3
 * @brief : None
 * @attention : None
-* @date : 2024/7/25 
+* @date : 2024/7/25
 *********************************************************************
 *********
 */
@@ -21,12 +21,10 @@
 #include "ChipArch/vendor/ETL/ETLibrary/include/etl/function.h"
 #include "ChipArch/vendor/OtherLib/WString.h"
 using namespace etl;
-constexpr uint8_t num=8;
+constexpr uint8_t num_message=16;
 const String None("none");
 const String Error_APP_Label("blue_screen");
-using MessageDataMap=map<uint8_t, String, MESSAGE_NUM>;
-template<uint8_t message_num>
-using BatchModifyVector=const vector<pair<String, MessageDataMap>, message_num>;
+using MessageDataMap=map<uint8_t, String, num_message>;
 
 class AppMessagePipe{
 protected:
@@ -41,10 +39,6 @@ public:
 
     // 更新消息
     static bool modifyMessage(const String& appName, uint8_t id, const String& newMessage);
-
-//    // 批量添加消息
-//    template<uint8_t message_num>//todo 新写一个类来完成这件事情吧
-//    static void batchAddMessages(const vector<pair<String, MessageDataMap>,message_num>& messages);
 
     // 获取所有消息
     static MessageDataMap getAllMessages(const String& appName);
