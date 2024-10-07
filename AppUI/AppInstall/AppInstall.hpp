@@ -14,25 +14,21 @@
 
 #ifndef LVGL_APPINSTALL_H
 #define LVGL_APPINSTALL_H
+#include "ChipArch/ChipArch.h"
+#include "SysApp/app_desk/app_desk.h"
 
-
-#include "../../SysApp/app_desk/app_desk.h"
-#include "../../UserApp/testApp/test_app.h"
-#include "../../ChipArchChild/ChipArch.h"
-#include "../../SysApp/app_setting/app_setting.h"
-#include "ChipArch/SysApp/app_blue_screen/app_blue_screen.h"
+#include "UserApp/app_demo/app_demo.h"
+#include "UserApp/app_mi/app_mi.h"
+#include "UserApp/app_mi/app_mi.h"
 /* Header files locator(Don't remove) */
 
-void chip_arch_install_callback(ChipArch * chipArch){
-    auto setting=chipArch->installApp(new app_setting_package);
-    chipArch->creatApp(setting.c_str());
-//     chipArch->installApp(new test_app_packer1);
-//     chipArch->installApp(new test_app_packer2);
-//     chipArch->installApp(new test_app_packer3);
-//     chipArch->installApp(new test_app_packer4);
+void chip_arch_install_callback(ChipArch_::ChipArch * chipArch){
+   auto demo= chipArch->installApp(new app_demo_packer);
+    if (!demo) fmt::newline_info("error {}",demo);
 
-    auto blue_screen= chipArch->installApp(new app_blue_screen_package);
-    chipArch->creatApp(blue_screen.c_str());
-  /* Install app locator(Don't remove) */
+	 
+	 auto mi= chipArch->installApp(new app_mi_packer);
+	if (!mi) fmt::newline_info("error {}",mi);
+	/* Install app locator(Don't remove) */
 }
 #endif //LVGL_APPINSTALL_H

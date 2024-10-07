@@ -14,12 +14,12 @@
 
 #ifndef LVGL_APPMESSAGEPIPE_H
 #define LVGL_APPMESSAGEPIPE_H
-#include "ChipArch/ChipArchConfig.h"
-#include "ChipArch/vendor/ETL/ETLibrary/include/etl/multimap.h"
-#include "ChipArch/vendor/ETL/ETLibrary/include/etl/map.h"
-#include "ChipArch/vendor/ETL/ETLibrary/include/etl/vector.h"
-#include "ChipArch/vendor/ETL/ETLibrary/include/etl/function.h"
-#include "ChipArch/vendor/OtherLib/WString.h"
+#include "ChipArchConfig.h"
+#include "vendor/ETL/ETLibrary/include/etl/multimap.h"
+#include "vendor/ETL/ETLibrary/include/etl/map.h"
+#include "vendor/ETL/ETLibrary/include/etl/vector.h"
+#include "vendor/ETL/ETLibrary/include/etl/function.h"
+#include "vendor/SimpleString/WString.h"
 using namespace etl;
 constexpr uint8_t num_message=16;
 const String None("none");

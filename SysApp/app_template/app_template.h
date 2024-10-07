@@ -16,43 +16,46 @@
 #define LVGL_APP_TEMPLATE_H
 #include "ui/app_template_ui.h"
 #if 1
-# include "ChipArch/AppUI/AppManage/Application/Application.hpp"
-
-class app_template: public Application{
+# include "AppUI/AppManage/Application/app.h"
+using namespace ChipArch_;
+class app_template: public APP_BASE {
 protected:
-    app_template_ui * app_template_ui_;
+    app_template_widget * getWidget();
 public:
     ~app_template() override;
 
-    void initPage() override;
+    void onCreate() override;
 
-    void creat() override;
+    void onResume() override;
 
-    void resume() override;
+    void onRunning() override;
 
-    void running() override;
+    void onRunningBG() override;
 
-    void backRunning() override;
+    void onPause() override;
 
-    void pause() override;
+    void onDestroy() override;
 
-    void Destruction() override;
 
 };
 
-class app_template_package:public AppPackage{
+class app_template_packer:public APP_PACKER_BASE{
 public:
-    ~app_template_package() override;
+    ~app_template_packer() override;
+
+    std::string getAppName() override;
+
+    void *getAppIcon() override;
+
+    void *getCustomData() override;
 
     void *newApp() override;
 
     void deleteApp(void *app) override;
 
-    const char *getAppName() override;
+     void *newScreenPacker() override;
 
-    void *getAppIcon() override;
-
-    void *getCustomData() override;
+    void deleteScreenPacker(void *pVoid) override;
 };
 #endif
 #endif //LVGL_APP_TEMPLATE_H

@@ -1,99 +1,79 @@
 /**
 *********************************************************************
 *********
-* @project_name :lvgl
+* @project_name :modm
 * @file : app_desk.cpp
-* @author : zen3
+* @author : ruixuezhao890
 * @brief : None
 * @attention : None
-* @date : 2024/4/12
+* @date : 2024/9/30 
 *********************************************************************
 *********
 */
 
+
 #include "app_desk.h"
-#include "ChipArch/ChipArchChild/ChipArch.h"
+#include "ui/app_desk_ui.hpp"
+#include "EmbHardware/HAL.h"
 
-
-
-app_desk::app_desk() : Application(){
+app_desk::~app_desk() {
 
 }
 
-app_desk::~app_desk(){delete app_desk_ui_;};
-
-void app_desk::creat() {
-    setAllowBgRunning(true);
+void app_desk::onCreate() {
+    fmt::newline_info("OnCreate:{}","Ok");
 }
 
-void app_desk::resume() {
-    spdlog::info("resume Running\n");
-    app_desk_ui_->drawDeskIcon();
+void app_desk::onResume() {
+    fmt::newline_info("OnResume:{}","OK");
 }
 
-void app_desk::running() {
-    spdlog::info("desk Running\n");
+void app_desk::onRunning() {
+//    fmt::newline_info("OnRunning {}","Ok");
+//    HAL::Delay(500);
+}
 
-    lv_indev_data_t getKey{};
-    HAL::KeyBoardRead(&getKey);
+void app_desk::onRunningBG() {
 
-    if (getKey.key) {
-        spdlog::info("getKey: %d\n", getKey.key);
-        switch (getKey.key) {
-            case 19: // Right
-                app_desk_ui_->scrollRight();
-                break;
-            case 20: // Left
-                app_desk_ui_->scrollLeft();
-                break;
-            case 10: // Select
-                app_desk_ui_->scrollOpen();
-                break;
-            default:
-                break;
-        }
-    }
+}
 
+void app_desk::onPause() {
+
+}
+
+void app_desk::onDestroy() {
+    fmt::newline_info("onDestroy {}","Ok");
     HAL::Delay(500);
 }
 
-void app_desk::backRunning() {
-    spdlog::info("back app_desk Running\n");
-    HAL::Delay(500);
+app_desk_packer::~app_desk_packer() {
 
-    if (ChipArch::getOrCreateChipArch()->getApplicationManage()->getCreateAppNum() == 1) {
-        spdlog::info("back to desk\n");
-        ChipArch::getOrCreateChipArch()->getApplicationManage()->startApplication(this->getAppName());
-    }
 }
 
-void app_desk::pause() {}
-
-void app_desk::Destruction() {}
-
-void app_desk::initPage() {
-    app_desk_ui_=new app_desk_ui(getAppName());
-    setPage(app_desk_ui_);
+std::string app_desk_packer::getAppName() {
+    return "desk";
 }
 
-app_desk_package::~app_desk_package() = default;
+void *app_desk_packer::getAppIcon() {
+    return APP_PACKER_BASE::getAppIcon();
+}
 
-void* app_desk_package::newApp() {
+void *app_desk_packer::getCustomData() {
+    return APP_PACKER_BASE::getCustomData();
+}
+
+void *app_desk_packer::newApp() {
     return new app_desk();
 }
 
-void app_desk_package::deleteApp(void* app) {
-    delete static_cast<app_desk*>(app);
+void app_desk_packer::deleteApp(void *app) {
+    delete static_cast<app_desk *>(app);
 }
 
-const char* app_desk_package::getAppName() {
-    return home_page_name.c_str();
+void *app_desk_packer::newScreenPacker() {
+    return new app_desk_ui_packer();
 }
 
-void* app_desk_package::getAppIcon() {
-    return nullptr;
-}
-
-void* app_desk_package::getCustomData() {
-    return AppPackage::getCustomData();
+void app_desk_packer::deleteScreenPacker(void *pVoid) {
+    delete static_cast<app_desk_ui_packer*>(pVoid);
 }

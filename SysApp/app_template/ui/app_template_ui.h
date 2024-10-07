@@ -14,25 +14,46 @@
 
 #ifndef LVGL_APP_TEMPLATE_UI_H
 #define LVGL_APP_TEMPLATE_UI_H
-#include "ChipArch/AppUI/PageManage/PageManage.h"
-#include "ChipArch/AppUI/AppManage/ApplicationManage/ApplicationManage.h"
 
-class app_template_ui : public Page{
-    //External access to parts that want to change properties should be declared here
-    struct widgets{
-        Label * error_label;
-    };
+#include "AppUI/ScreenController/Screen.hpp"
+#include "AppUI/AppManage/ApplicationManage/app_manager.h"
+
+class app_template_widget;
+
+class app_template_ui:public SCREEN_BASE{
+protected:
+  app_template_widget * getWidget();
 public:
-    widgets widgets_;
+    app_template_ui(lv_pm_page_t* lv_pm_page_set);
 
-    explicit app_template_ui(const String& band);
+    void initScreen(lv_obj_t * cont) override;
 
-    ~app_template_ui() override;
+    void deInitScreen(lv_obj_t * cont) override;
+};
+class app_template_widget{
+public:
 
-    void init() override;
-
-    void exit() override;
 };
 
+class app_template_ui_packer:public SCREEN_PACKER_BASE{
+protected:
+    app_template_widget widget;
+public:
+    void * newPage(lv_pm_page_t* lv_pm_page_set) override{
+        return new app_template_ui(lv_pm_page_set);
+    }
+    void deletePage(void * pVoid) override{
+        delete static_cast<app_template_ui *>(pVoid);
+    }
 
+    uint8_t getPageId() override{//这里的编号是唯一的，0已经被使用记得更改。范围：0~255
+        return 0;
+    };
+
+    virtual void * getWidgetStruct() override{
+        return (void *)&widget;
+    };
+
+
+};
 #endif //LVGL_APP_TEMPLATE_UI_H

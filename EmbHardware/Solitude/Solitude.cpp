@@ -15,11 +15,14 @@
 #include "Solitude.h"
 #if COMPUTER
 #include "lv_drivers/sdl/sdl.h"
+#include "EmbHardware/LVGLPort/porting/lv_port_indev.h"
+#include "EmbHardware/LVGLPort/porting/lv_port_disp.h"
 #include <unistd.h>
 
 void Solitude::init() {
     lv_init();
-    sdl_init();
+    lv_port_disp_init();
+    lv_port_indev_init();
 }
 
 void Solitude::delay(unsigned long milliseconds) {
@@ -31,11 +34,11 @@ void Solitude::display(lv_disp_drv_t *disp_drv, const lv_area_t *area, lv_color_
 }
 
 void Solitude::keyboard_read(lv_indev_data_t *data) {
-    sdl_keyboard_read(HAL::InputDeviceGroup_->getKeyBoardInterface()->raw_ptr()->driver,data);
+
 }
 
 void Solitude::mouse_point_read(lv_indev_data_t *data) {
-    sdl_mouse_read(HAL::InputDeviceGroup_->getKeyBoardInterface()->raw_ptr()->driver,data);
+
 }
 
 String Solitude::type() {

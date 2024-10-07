@@ -1,3 +1,4 @@
+#if 0
 #include "Sliding_test.h"
 #include "ChipArch/App&UI/AppInstall/AppInstall.hpp"
 #include "ChipArch/EmbHardware/Solitude/Solitude.h"
@@ -23,3 +24,4 @@ void loop(){
         usleep(5 * 1000);
     }
 }
+#endif

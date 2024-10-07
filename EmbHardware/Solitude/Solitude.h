@@ -14,7 +14,8 @@
 
 #ifndef LVGL_SOLITUDE_H
 #define LVGL_SOLITUDE_H
-#include "ChipArch/EmbHardware/HAL.h"
+#include "EmbHardware/HAL.h"
+
 #if COMPUTER
 
 class Solitude:public HAL{
@@ -32,6 +33,7 @@ public:
     void keyboard_read(lv_indev_data_t *data) override;
 
     void mouse_point_read(lv_indev_data_t *data) override;
+
 
 };
 #endif

@@ -1,61 +1,56 @@
 /**
 *********************************************************************
 *********
-* @project_name :lvgl
-* @file : app_desk.h
-* @author : zen3
+* @project_name :modm
+* @file : app_desk.hpp
+* @author : ruixuezhao890
 * @brief : None
 * @attention : None
-* @date : 2024/4/12
+* @date : 2024/9/30 
 *********************************************************************
 *********
 */
-//
-
-#ifndef LVGL_APP_DESK_H
-#define LVGL_APP_DESK_H
-#include "ChipArch/SysApp/app_desk/ui/app_desk_ui.h"
-# include "ChipArch/AppUI/AppManage/Application/Application.hpp"
 
 
-class app_desk: public Application {
-protected:
-    app_desk_ui *  app_desk_ui_;
+#ifndef MODM_APP_DESK_HPP
+#define MODM_APP_DESK_HPP
+
+# include "AppUI/AppManage/Application/app.h"
+using namespace ChipArch_;
+class app_desk :public APP_BASE{
 public:
-    app_desk();
-
     ~app_desk() override;
 
-    void initPage() override;
+    void onCreate() override;
 
-    void creat() override;
+    void onResume() override;
 
-    void resume() override;
+    void onRunning() override;
 
-    void running() override;
+    void onRunningBG() override;
 
-    void backRunning() override;
+    void onPause() override;
 
-    void pause() override;
-
-    void Destruction() override;
-
+    void onDestroy() override;
 };
 
-class app_desk_package: public AppPackage{
+class app_desk_packer:public APP_PACKER_BASE{
 public:
-    ~app_desk_package() override;
+    ~app_desk_packer() override;
+
+    std::string getAppName() override;
+
+    void *getAppIcon() override;
+
+    void *getCustomData() override;
 
     void *newApp() override;
 
     void deleteApp(void *app) override;
 
-    const char *getAppName() override;
+    void *newScreenPacker() override;
 
-    void *getAppIcon() override;
-
-    void *getCustomData() override;
+    void deleteScreenPacker(void *pVoid) override;
 };
 
-
-#endif //LVGL_APP_DESK_H
+#endif //MODM_APP_DESK_HPP

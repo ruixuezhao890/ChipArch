@@ -14,23 +14,39 @@
 
 #include "Ethan.h"
 #if STM32&&MCU
-#include "../Drivers/BSP/LCD/lcd.h"
-#include "../Drivers/SYSTEM/delay/delay.h"
-#include "../Drivers/SYSTEM/usart/usart.h"
-#include "LED/led.h"
-#include "TIMER/gtim.h"
+
+#include "./BSP/LCD/lcd.h"
+#include "./BSP/LED/led.h"
+#include "./BSP/KEY/key.h"
+#include "./BSP/TIMER/gtim.h"
+#include "./BSP/TOUCH/touch.h"
+#include "./SYSTEM/delay/delay.h"
+#include "./SYSTEM/usart/usart.h"
+#include "./LVGL/lvgl/porting/lv_port_disp.h"
+#include "./LVGL/lvgl/porting/lv_port_indev.h"
 
 String Ethan::type() {
     return "STM32";
 }
 
 void Ethan::init() {
+    HAL_Init();
+    sys_stm32_clock_init(336,8,2,7);
+    delay_init(168);
+    usart_init(115200);
     led_init();
-    gtim_timx_int_init(10-1,8400-1);
-    lcd_init();
+    key_init();
+    gtim_tim3_int_init(10 - 1, 8400 - 1);
 
     lv_init();
-    usart_init(115200);
+    lcd_init();
+    lcd_display_dir(1);
+    tp_dev.init();
+    gtim_tim6_int_init(5000-1,84-1);
+
+
+
+
 
 }
 
@@ -48,8 +64,8 @@ void Ethan::keyboard_read(lv_indev_data_t *data) {
 }
 
 void Ethan::touchpad_point_read(lv_indev_data_t *data) {
-//    static lv_coord_t last_x = 0;
-//    static lv_coord_t last_y = 0;
+    static lv_coord_t last_x = 0;
+    static lv_coord_t last_y = 0;
 //
 //    /*Save the pressed coordinates and the state*/
 //
@@ -64,10 +80,40 @@ void Ethan::touchpad_point_read(lv_indev_data_t *data) {
 //    /*Set the last pressed coordinates*/
 //    data->point.x = last_x;
 //    data->point.y = last_y;
+    tp_dev.scan(0);
+    if (tp_dev.sta&TP_PRES_DOWN){
+        last_x= (lv_coord_t)tp_dev.x[0];
+        last_y= (lv_coord_t)tp_dev.y[0];
+        data->state=LV_INDEV_STATE_PR;
+    }else{
+        data->state=LV_INDEV_STATE_REL;
+    }
+    data->point.x=last_x;
+    data->point.y=last_y;
 }
 
-void Ethan::up_date() {
+void Ethan::updata() {
    LED1_TOGGLE();
-   LED0_TOGGLE();
+//   LED0_TOGGLE();
 }
+
+bool Ethan::getAnyButton() {
+  return  key_scan(0);
+}
+
+void Ethan::microseconds_delay(unsigned long milliseconds) {
+    delay_us(milliseconds);
+}
+
+void Ethan::toggle_LED(uint8_t id) {
+
+    if (id==1){
+        LED0_TOGGLE();
+    }else if (id==2){
+        LED1_TOGGLE();
+    }else{
+        return;
+    }
+}
+
 #endif

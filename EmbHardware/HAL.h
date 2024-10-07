@@ -15,12 +15,12 @@
 #ifndef LVGL_HAL_H
 #define LVGL_HAL_H
 
-
-#include "../../ChipArchConfig.h"
-#include "ChipArch/vendor/spdlog/include/spdlog/spdlog.h"
-#include "ChipArch/vendor/OtherLib/WString.h"
-#include "Display_interface/DisplayInterface.h"
-#include "Input_device_interface/InputDeviceInterface.h"
+#include "lvgl.h"
+#include "ChipArchConfig.h"
+#include "vendor/SimpleString/WString.h"
+#if ESP32
+bool is_pointer_in_psram(void* ptr);
+#endif
 #if IMU
 struct ImuData_t
 {
@@ -32,13 +32,9 @@ struct ImuData_t
 class HAL {
 private:
     static HAL * hal_;
-    ImuData_t imu_data_={};
+    ImuData_t imu_data_={0,0,0};
 protected:
-    static DisplayInterface * DisplayInterface_;
-
-    static InputDeviceGroup * InputDeviceGroup_;
-
-    static fileSystemInterface * FileInterface_;
+    
 public:
     HAL()=default;
 
@@ -50,9 +46,7 @@ public:
 
     static void destroy();
 
-    static DisplayInterface *getDisplayInterface();
-
-    static InputDeviceGroup *getInputDeviceGroup();
+   
 
     static String Type(){ return getHal()->type();};
     virtual String type(){ return "Base";};
@@ -63,6 +57,9 @@ public:
 
     static void Delay(unsigned long milliseconds);
 
+    static void Os_delay(unsigned long millisenconds);
+
+    virtual void os_delay(unsigned long millisenconds);
 #if ESP32&&MCU
     virtual void delay_ms(unsigned long milliseconds);
 #else
@@ -71,20 +68,44 @@ public:
     static void Display(lv_disp_drv_t * disp_drv, const lv_area_t * area, lv_color_t * color_p) ;
     virtual void display(lv_disp_drv_t * disp_drv, const lv_area_t * area, lv_color_t * color_p);
 
+    static void Display_GPU(lv_disp_drv_t * disp_drv, lv_color_t * dest_buf, lv_coord_t dest_width,const lv_area_t * fill_area, lv_color_t color);
+    virtual void display_GPU(lv_disp_drv_t * disp_drv, lv_color_t * dest_buf, lv_coord_t dest_width,const lv_area_t * fill_area, lv_color_t color){
+//     uint16_t w = ex-sx+1;
+//     uint16_t h = ey-sy+1;
+
+//     lcd_set_window(sx, sy, w, h);
+//     uint32_t draw_size = w * h;
+//     lcd_write_ram_prepare();
+
+//     for(uint32_t i = 0; i < draw_size; i++)
+//     {
+//         lcd_wr_data(color[i]);
+//     }
+    };
+
     static void KeyBoardRead(lv_indev_data_t * data);
     virtual void keyboard_read( lv_indev_data_t * data);
 #if COMPUTER
     static void  MousePointRead(lv_indev_data_t * data);
     virtual void mouse_point_read( lv_indev_data_t * data);
 #elif MCU
-    static void  TouchpadPointRead(lv_indev_data_t * data);
-    virtual void touchpad_point_read( lv_indev_data_t * data);
-#endif
-    static void UpDate();
-    virtual void update();
 
-    static unsigned long Millis() ;
-    virtual unsigned long millis();
+    static void  TouchpadPointRead(lv_indev_drv_t * indev_drv,lv_indev_data_t *data);
+    virtual void touchpad_point_read( lv_indev_drv_t * indev_drv,lv_indev_data_t *data);
+
+    static void Toggle_LED(uint8_t id);
+    virtual void toggle_LED(uint8_t id);
+
+#endif
+
+    static void Up_Data();
+    virtual void up_data_();
+
+    static void  Up_data_lvgl();
+
+
+    static  void Microseconds_delay(unsigned long milliseconds) ;
+    virtual void microseconds_delay(unsigned long milliseconds);
 
 
     static void PowerOff() ;

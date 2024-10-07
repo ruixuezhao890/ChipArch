@@ -1,3 +1,4 @@
+import io
 import os as os
 
 from shutil import copytree
@@ -69,21 +70,26 @@ def createApp():
     content_source_file = open(template_app_path + "/app_template/app_template.cpp", mode='r').read()
     content_header_file = open(template_app_path + "/app_template/app_template.h", mode='r').read()
     content_source_file_ui = open(template_app_path + "/app_template/ui/app_template_ui.cpp", mode='r').read()
-    content_header_file_ui = open(template_app_path + "/app_template/ui/app_template_ui.h", mode='r').read()
+    # content_header_file_ui = open(template_app_path + "/app_template/ui/app_template_ui.h", mode='r').read()
+
+    content_header_file_ui = io.open(template_app_path + "/app_template/ui/app_template_ui.h", mode='r',
+                                     encoding='utf-8').read()
 
     # 替换应用程序类名
     app_class_name = app_name.capitalize().lower()
-    print("app class name: {}".format("App" + app_class_name))
-    content_source_file = content_source_file.replace("template", app_class_name)
-    content_header_file = content_header_file.replace("template", app_class_name)
-    content_source_file_ui = content_source_file_ui.replace("template", app_class_name)
-    content_header_file_ui = content_header_file_ui.replace("template", app_class_name)
+    print("app class name: {}".format("app " + app_class_name))
+    # content_source_file = content_source_file.replace("template", app_class_name)
+    # content_header_file = content_header_file.replace("template", app_class_name)
+    # content_source_file_ui = content_source_file_ui.replace("template", app_class_name)
+    # content_header_file_ui = content_header_file_ui.replace("template", app_class_name)
     #
     # # 替换文件名
     content_source_file = content_source_file.replace("app_template", "app_" + app_name)
     content_header_file = content_header_file.replace("app_template", "app_" + app_name)
-    content_source_file_ui = content_source_file_ui.replace("app_template_ui", "app_" + app_class_name + "_ui")
-    content_header_file_ui = content_header_file_ui.replace("app_template_ui", "app_" + app_class_name + "_ui")
+    content_header_file = content_header_file.replace("APP_TEMPLATE", "APP_" + app_name.upper())
+    content_source_file_ui = content_source_file_ui.replace("app_template", "app_" + app_class_name)
+    content_header_file_ui = content_header_file_ui.replace("app_template", "app_" + app_class_name)
+    content_header_file_ui = content_header_file_ui.replace("APP_TEMPLATE", "APP_" + app_name.upper())
 
     # 写入文件
     source_file.write(content_source_file)
@@ -127,18 +133,20 @@ def installApp():
     if choice == 'S':
         content_app_install_cb_file = content_app_install_cb_file.replace(
             header_include_tag,
-            "#include \"ChipArch/SysApp/app_{}/app_{}.h\"\n{}".format(app_name, app_name.lower(), header_include_tag)
+            "#include \"SysApp/app_{}/app_{}.h\"\n{}".format(app_name, app_name.lower(), header_include_tag)
         )
     elif choice == 'U':
         content_app_install_cb_file = content_app_install_cb_file.replace(
             header_include_tag,
-            "#include \"ChipArch/UserApp/app_{}/app_{}.h\"\n{}".format(app_name, app_name.lower(), header_include_tag)
+            "#include \"UserApp/app_{}/app_{}.h\"\n{}".format(app_name, app_name.lower(), header_include_tag)
         )
 
     # 替换应用安装标记
     content_app_install_cb_file = content_app_install_cb_file.replace(
         app_install_tag,
-        "auto {}= chipArch->installApp(new app_{}_package);\n  chipArch->creatApp({}.c_str());\n   {}".format(
+        ' auto {}= chipArch->installApp(new app_{}_packer);\n\tif (!{}) fmt::newline_info("error {{}}",{});\n\t{}'.
+        format(
+            app_name.capitalize().lower(),
             app_name.capitalize().lower(),
             app_name.capitalize().lower(),
             app_name.capitalize().lower(),

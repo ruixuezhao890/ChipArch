@@ -1,0 +1,75 @@
+INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR} )
+include_directories(lvgl
+        ChipArch/App&UI/utils/lvglpp
+        ChipArch/App&UI/utils/lvglpp/core
+        ChipArch/App&UI/utils/lvglpp/misc
+        ChipArch/App&UI/utils/lvglpp/draw
+        ChipArch/App&UI/utils/lvglpp/font
+        ChipArch/App&UI/utils/lvglpp/widgets/
+
+        ChipArch/UserApp/testApp
+)
+file(GLOB_RECURSE INCLUDES "lv_drivers/*.h" "lvgl/demos/*.h"  "lvgl/*.h"  "./*.h"
+        "ChipArch/ChipArchConfig.h"
+        "ChipArch/App&UI/utils/lvglpp/*.*"
+        "ChipArch/App&UI/utils/PracticalWidgets/*.*"
+
+        "ChipArch/App&UI/AnimCanvas/*.*"
+        "ChipArch/App&UI/UIElementsSelect/BaseModule/*.*"
+        "ChipArch/App&UI/UIElementsSelect/SimpleMenu/*.*"
+        "ChipArch/App&UI/AppManage/ApplicationManage/*.*"
+        "ChipArch/App&UI/AppManage/Application*.*"
+        "ChipArch/App&UI/PageManage/*.*"
+        "ChipArch/App&UI/UI/*.*"
+        "ChipArch/ChipArchChild/*.*"
+        "ChipArch/ChipArch/Display_interface/*.*"
+        "ChipArch/ChipArch/Input_device_interface/*.*"
+        "ChipArch/EmbHardware/*.*"
+
+        "ChipArch/SysApp/app_desk/*.*"
+        "ChipArch/SysApp/app_desk/assets/*.*"
+        "ChipArch/SysApp/app_desk/ui/*.*"
+        "ChipArch/SysApp/app_setting/*.*"
+        "ChipArch/SysApp/app_setting/ui/*.*"
+
+        "ChipArch/UserApp/*.*"
+        "ChipArch/vendor/OtherLib/*.*"
+        "ChipArch/vendor/Tools/*.*"
+        "ChipArch/vendor/ETL/ETLibrary/include/*.*"
+        "ChipArch/vendor/spdlog/include/spdlog/*.*"
+        "ChipArch/vendor/spdlog/include/spdlog/cfg/*.*"
+        "ChipArch/vendor/spdlog/include/spdlog/details/*.*"
+        "ChipArch/vendor/spdlog/include/spdlog/fmt/*.*"
+        "ChipArch/vendor/spdlog/include/spdlog/sinks/*.*"
+
+)
+file(GLOB_RECURSE SOURCES  "lv_drivers/*.c" "lvgl/demos/*.c"  "lvgl/src/*.c"
+        "mouse_cursor_icon.c"
+        "ChipArch/AppUI/utils/lvglpp/*.*"
+        "ChipArch/AppUI/utils/PracticalWidgets/*.*"
+
+        "ChipArch/AppUI/AppInstall/*.*"
+        "ChipArch/AppUI/AppMessagePipe/*.*"
+        "ChipArch/AppUI/AnimCanvas/*.*"
+        "ChipArch/Bridge/Bridge.cpp"
+        "ChipArch/AppUI/UIElementsSelect/BaseModule/*.*"
+        "ChipArch/AppUI/UIElementsSelect/SimpleMenu/*.*"
+        "ChipArch/AppUI/AppManage/ApplicationManage/*.*"
+        "ChipArch/AppUI/AppManage/Application/*.*"
+        "ChipArch/AppUI/PageManage/*.*"
+        "ChipArch/AppUI/UI/*.*"
+        "ChipArch/ChipArchChild/*.*"
+        "ChipArch/EmbHardware/Display_interface/*.*"
+        "ChipArch/EmbHardware/Input_device_interface/*.*"
+        "ChipArch/EmbHardware/*.*"
+
+        "ChipArch/SysApp/*.*"
+        "ChipArch/SysApp/app_desk/*.*"
+        "ChipArch/SysApp/app_setting/*.*"
+
+        "ChipArch/UserApp/*.*"
+        "ChipArch/vendor/OtherLib/*.*"
+        "ChipArch/vendor/Tools/*.*"
+        "ChipArch/vendor/ETL/ETLibrary/include/*.*"
+
+)

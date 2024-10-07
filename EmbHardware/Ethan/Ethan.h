@@ -14,7 +14,7 @@
 
 #ifndef CHIP_ARCH_DEMO_ETHAN_H
 #define CHIP_ARCH_DEMO_ETHAN_H
-#include "ChipArch/EmbHardware/HAL.h"
+#include "EmbHardware/HAL.h"
 #if STM32&&MCU
 class Ethan:public HAL{
 public:
@@ -30,7 +30,14 @@ public:
 
     void touchpad_point_read(lv_indev_data_t *data) override;
 
-    void up_date() override;
+    void updata() override;
+
+    bool getAnyButton() override;
+
+    void microseconds_delay(unsigned long milliseconds) override;
+
+    void toggle_LED(uint8_t id) override;
+
 };
 
 #endif

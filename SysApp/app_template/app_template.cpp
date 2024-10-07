@@ -13,62 +13,68 @@
 //
 
 #include "app_template.h"
+#include "EmbHardware/HAL.h"
 
-
-
-void app_template::creat() {
-
+app_template_widget *app_template::getWidget() {
+    return static_cast<app_template_widget*>(getScreenPacker()->getWidgetStruct());
 }
-
-void app_template::resume() {
-
-}
-
-void app_template::running() {
-
-}
-
-void app_template::backRunning() {
-
-}
-
-void app_template::pause() {
-
-}
-
-void app_template::Destruction() {
-
-}
-
-void app_template::initPage() {
-    app_template_ui_=new app_template_ui(getAppName());
-    setPage(app_template_ui_);
-}
-
 app_template::~app_template() {
-    delete app_template_ui_;
-    app_template_ui_= nullptr;
+
+}
+
+void app_template::onCreate() {
+    APP_BASE::onCreate();
+}
+
+void app_template::onResume() {
+    APP_BASE::onResume();
+}
+
+void app_template::onRunning() {
+    APP_BASE::onRunning();
+}
+
+void app_template::onRunningBG() {
+    APP_BASE::onRunningBG();
+}
+
+void app_template::onPause() {
+    APP_BASE::onPause();
+}
+
+void app_template::onDestroy() {
+    APP_BASE::onDestroy();
 }
 
 
-app_template_package::~app_template_package() = default;
+app_template_packer::~app_template_packer() = default;
 
-void *app_template_package::newApp() {
+
+std::string app_template_packer::getAppName() {
+    return "app_template";
+}
+
+void *app_template_packer::getAppIcon() {
+    return APP_PACKER_BASE::getAppIcon();
+}
+
+void *app_template_packer::getCustomData() {
+    return APP_PACKER_BASE::getCustomData();
+}
+
+void *app_template_packer::newApp() {
     return new app_template();
 }
 
-void app_template_package::deleteApp(void *app) {
+void app_template_packer::deleteApp(void *app) {
     delete static_cast<app_template *>(app);
 }
 
-const char *app_template_package::getAppName() {
-    return "template";
+void *app_template_packer::newScreenPacker() {
+    return (void *)new app_template_ui_packer();
 }
 
-void *app_template_package::getAppIcon() {
-    return nullptr;
+void app_template_packer::deleteScreenPacker(void *pVoid) {
+     delete static_cast<app_template_ui_packer*>(pVoid);
 }
 
-void *app_template_package::getCustomData() {
-    return nullptr;
-}

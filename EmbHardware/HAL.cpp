@@ -16,16 +16,10 @@
 #include "HAL.h"
 
 HAL *HAL::hal_ = nullptr;
-DisplayInterface *HAL::DisplayInterface_ = nullptr;
-InputDeviceGroup *HAL::InputDeviceGroup_ = nullptr;
-fileSystemInterface *HAL::FileInterface_ = nullptr;
+
 
 void HAL::initInputDevice(char letter) {
-    DisplayInterface_ = new DisplayInterface();
-    InputDeviceGroup_ = new InputDeviceGroup(DisplayInterface_, letter);
-    if (InputDeviceGroup_->getFileSystemInterface()) {
-        FileInterface_ = InputDeviceGroup_->getFileSystemInterface();
-    }
+   
 }
 
 HAL *HAL::getHal() {
@@ -43,14 +37,11 @@ bool HAL::Inject(HAL *inject, char letter) {
     }
     inject->init();
 
-    spdlog::set_level(spdlog::level::debug);
+
 
     initInputDevice(letter);
 
-    spdlog::info("HAL injected, type:{}", inject->type().c_str());
-//如果想要使用行号之类的标志使用
-//SPDLOG_LOGGER_INFO(spdlog::default_logger(), "Hello {}", "world");
-//这个宏函数就可以得到行号
+   fmt::newline_info("HAL injected, type:{}", inject->type().c_str());
     hal_ = inject;
 
     return true;
@@ -65,26 +56,28 @@ bool HAL::check() {
 
 void HAL::destroy() {
     if (hal_ == nullptr) {
-        spdlog::info("HAL not exist");
+        LV_LOG("HAL not exist");
         return;
     }
     delete hal_;
-    delete DisplayInterface_;
-    delete InputDeviceGroup_;
+
     hal_ = nullptr;
-    DisplayInterface_ = nullptr;
-    InputDeviceGroup_ = nullptr;
+   
+}
+void HAL:: Os_delay(unsigned long millisenconds){
+    getHal()->os_delay(millisenconds);
 }
 
+void HAL:: os_delay(unsigned long millisenconds){
+
+}
 void HAL::Delay(unsigned long milliseconds) {
 #if ESP32 && MCU
     getHal()->delay_ms(milliseconds);
 #else
     getHal()->delay(milliseconds);
-
 #endif
 }
-
 
 void HAL::Display(lv_disp_drv_t *disp_drv, const lv_area_t *area, lv_color_t *color_p) {
     getHal()->display(disp_drv, area, color_p);
@@ -113,80 +106,83 @@ void HAL::mouse_point_read(lv_indev_data_t *data) {
 }
 
 #elif MCU
+void HAL::Toggle_LED(uint8_t id) {
+    getHal()->toggle_LED(id);
+}
 
+void HAL::toggle_LED(uint8_t id) {
+
+}
 #endif
 
-DisplayInterface *HAL::getDisplayInterface() {
-    return DisplayInterface_;
-}
-
-InputDeviceGroup *HAL::getInputDeviceGroup() {
-    return InputDeviceGroup_;
-}
 
 #if MCU
-void HAL::TouchpadPointRead(lv_indev_data_t *data) {
-    getHal()->touchpad_point_read(data);
+
+void HAL::TouchpadPointRead(lv_indev_drv_t * indev_drv,lv_indev_data_t *data) {
+    getHal()->touchpad_point_read(indev_drv,data);
 }
 
-void HAL::touchpad_point_read(lv_indev_data_t *data) {
+void HAL::touchpad_point_read(lv_indev_drv_t * indev_drv,lv_indev_data_t *data) {
 
 }
 #endif
 
-void HAL::UpDate() {
-    lv_task_handler();
-    getHal()->update();
+void HAL::Up_Data() {
+
+    getHal()->up_data_();
 }
 
-void HAL::update() {
+void HAL::up_data_() {
 
 }
 
-#if ESP32 && MCU
-void HAL::delay_ms(unsigned long milliseconds) {
 
+void HAL::Microseconds_delay(unsigned long milliseconds) {
+    getHal()->microseconds_delay(milliseconds);
 }
-#elif COMPUTER
 
-void HAL::delay(unsigned long milliseconds) {
+void HAL::microseconds_delay(unsigned long milliseconds) {
 
 }
 
 bool HAL::GetAnyButton() {
-    return getHal()->getAnyButton();
+   return getHal()->getAnyButton();
 }
 
 bool HAL::getAnyButton() {
     return false;
 }
 
-void HAL::PopFatalError(const String& msg) {
-    getHal()->popFatalError(msg);
+void  HAL::Up_data_lvgl() {
+    lv_timer_handler();
 }
 
-void HAL::popFatalError(const String& msg) {
+void HAL::PowerOff() {
 
 }
 
-bool HAL::CheckSdCard() {
-    return getHal()->checkSdCard();
+void HAL::powerOff() {
+
 }
 
-bool HAL::checkSdCard() {
-    return false;
+void HAL::Reboot() {
+
 }
 
-void HAL::VolumeStart(const String& filePath) {
-    getHal()->volumeStart(filePath);
+void HAL::reboot() {
+
 }
 
-void HAL::volumeStart( const String& filePath) {
+void HAL::VolumeStart(const String &filePath) {
+
+}
+
+void HAL::volumeStart(const String &filePath) {
 
 }
 
 void HAL::VolumeStop() {
-    getHal()->volumeStop();
+
 }
 
 void HAL::volumeStop() {
@@ -194,15 +190,31 @@ void HAL::volumeStop() {
 }
 
 void HAL::SetVolume(uint8_t volume) {
-    getHal()->setVolume(volume);
+
 }
 
 void HAL::setVolume(uint8_t volume) {
 
 }
-#if IMU
+
+bool HAL::CheckSdCard() {
+    return false;
+}
+
+bool HAL::checkSdCard() {
+    return false;
+}
+
+void HAL::PopFatalError(const String &msg) {
+
+}
+
+void HAL::popFatalError(const String &msg) {
+
+}
+
 void HAL::UpdateImuData() {
-    getHal()->updateImuData();
+
 }
 
 void HAL::updateImuData() {
@@ -216,32 +228,19 @@ ImuData_t &HAL::GetImuData() {
 ImuData_t &HAL::getImuData() {
     return imu_data_;
 }
-#endif
-unsigned long HAL::Millis() {
-    return getHal()->millis();
-}
 
-unsigned long HAL::millis() {
-    return 0;
-}
 
-void HAL::PowerOff() {
-    getHal()->powerOff();
-}
 
-void HAL::powerOff() {
+
+#if ESP32 && MCU
+void HAL::delay_ms(unsigned long milliseconds) {
 
 }
+#elif COMPUTER
 
-void HAL::Reboot() {
-    getHal()->reboot();
-}
-
-void HAL::reboot() {
+void HAL::delay(unsigned long milliseconds) {
 
 }
-
-
 
 #endif
 
