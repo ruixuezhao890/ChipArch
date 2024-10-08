@@ -1,4 +1,4 @@
-# SimpleKV
+# SimpleDataBase
 Simple Key-Value database (in memory so far)
 
 #### Usage
@@ -6,9 +6,9 @@ Simple Key-Value database (in memory so far)
 ##### [More detials](https://github.com/Forairaaaaa/simplekv/blob/main/example/basic_usage.cpp)
 
 ```cpp
-#include <simplekv.h>
+#include <simpleDataBase.hpp>
 
-SIMPLEKV::SimpleKV db;
+ DataBase::SimpleDataBase db;
 ```
 
 #### Basic type

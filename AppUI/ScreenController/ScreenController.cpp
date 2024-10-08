@@ -14,6 +14,7 @@
 
 #include "ScreenController.hpp"
 #include "EmbHardware/HAL.h"
+#include "PubInculde.hpp"
 lv_pm_open_options_t SCREEN_PACKER_BASE::open_options={
         LV_PM_ANIMA_NONE,
         LV_PM_TARGET_RESET,

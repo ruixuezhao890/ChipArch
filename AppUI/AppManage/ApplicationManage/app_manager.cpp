@@ -211,8 +211,8 @@ void APP_Manager::update()
             /* Do nothing */
             break;
         case ON_RESUME:
-            iter->app->onResume();
             ScreenController::openScreen(iter->app->getScreenPacker());
+            iter->app->onResume();
             iter->state = ON_RUNNING;
             break;
         case ON_RUNNING:

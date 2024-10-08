@@ -34,7 +34,12 @@ void *boot_anim_ascii_ui_packer::getWidgetStruct() {
 }
 
 void boot_anim_ascii_ui::initScreen(lv_obj_t *cont) {
-
+    auto obj= lv_obj_create(cont);
+    lv_obj_set_size(obj,200,200);
+    lv_obj_center(obj);
+    auto label= lv_label_create(obj);
+    lv_label_set_text(label,"BSP Init waiting...");
+    lv_obj_center(label);
 }
 
 void boot_anim_ascii_ui::deInitScreen(lv_obj_t *cont) {

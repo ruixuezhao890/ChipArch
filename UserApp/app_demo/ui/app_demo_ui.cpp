@@ -134,8 +134,8 @@ static void back_event_handler(lv_event_t * e)
     auto * menu =(lv_obj_t *) lv_event_get_user_data(e);
     auto demo_ui=(app_demo_ui *)menu->user_data;
     if(lv_menu_back_btn_is_root(menu, obj)) {
-        lv_obj_t * mbox1 = lv_msgbox_create(NULL, "Hello", "Root back btn click.", NULL, true);
-        lv_obj_center(mbox1);
+//        lv_obj_t * mbox1 = lv_msgbox_create(NULL, "Hello", "Root back btn click.", NULL, true);
+//        lv_obj_center(mbox1);
         auto chipArch=ChipArch_::ChipArch::getChipArchInstance();
 
        auto app=demo_ui->getScreenPacker()->getAppBase();

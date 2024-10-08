@@ -34,9 +34,9 @@
 #define MC_DB_BATTERY_IS_CHARGING_T     bool
 
 #define FMT_ENABEL_EXIST 1
-#if FMT_ENABEL_EXIST
-#include "vendor/WrapPeriph/Serial/Serial.hpp"
-#endif
+
+
+
 #define FREERTOS 0
 #define Examlpes 0
 

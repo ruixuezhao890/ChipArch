@@ -19,6 +19,8 @@
 #if FMT_ENABEL_EXIST
 
 #if ESP32
+#define FMT_HEADER_ONLY
+#include "fmt/core.h"
 #include "HardwareSerial.h"
 #include "fmt/format.h"
 #elif STM32

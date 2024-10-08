@@ -15,7 +15,7 @@
 #include "AppUI/AppManage/ApplicationManage/app_manager.h"
 #include "AppUI/AppManage/InputSystem/input_device_register.h"
 
-#include "vendor/simplekv/simplekv.h"
+#include "AppUI/SimpleDataBase/SimpleDataBase.hpp"
 #include "ChipArchConfig.h"
 
 
@@ -44,7 +44,7 @@ namespace ChipArch_
         ChipArch* framework = nullptr;
 
         /* Pointer to the database */
-        SIMPLEKV::SimpleKV* database = nullptr;
+        DataBase::SimpleDataBase * database = nullptr;
 
         APP_PACKER_BASE * desk_packer_point = nullptr;
     };
@@ -67,14 +67,14 @@ namespace ChipArch_
 
 
         /* Component Database */
-        SIMPLEKV::SimpleKV _database;
+        DataBase::SimpleDataBase _database;
 
         /* User data pointer */
         static APP_UserData_t* _user_data;
 
         /* Boot anim pointer */
         APP_PACKER_BASE* _boot_anim;
-        void (*_database_setup_callback)(SIMPLEKV::SimpleKV&);
+        void (*_database_setup_callback)( DataBase::SimpleDataBase&);
 
         /* Flag to free the memory, if they are created by framework */
         bool _flag_free_user_data;
@@ -94,7 +94,7 @@ namespace ChipArch_
         inline InputDevice_Register& getInputDeviceRegister() { return _input_device_register; }
         inline APP_Register& getAppRegister() { return _app_register; }
         inline APP_Manager& getAppManager() { return _app_manager; }
-        inline SIMPLEKV::SimpleKV& getDatabase() { return _database; }
+        inline DataBase::SimpleDataBase& getDatabase() { return _database; }
 
         /**
          * @brief Set the user data, which will be passed to every apps
@@ -103,7 +103,7 @@ namespace ChipArch_
          */
         static inline void setChipArchInstance(ChipArch* userData) { _user_data->framework = userData; }
 
-        static inline void setSimpleKVInstance(SIMPLEKV::SimpleKV* userData) { _user_data->database = userData; }
+        static inline void setSimpleKVInstance( DataBase::SimpleDataBase* userData) { _user_data->database = userData; }
 
         static inline void setDeskPointInstance(APP_PACKER_BASE* userData) { _user_data->desk_packer_point=userData; }
 
@@ -122,7 +122,7 @@ namespace ChipArch_
             return nullptr;
         }
 
-        static inline SIMPLEKV::SimpleKV* getSimpleKVInstance(){
+        static inline DataBase::SimpleDataBase* getSimpleKVInstance(){
             if (_user_data){
                 return _user_data->database;
             }
@@ -142,7 +142,7 @@ namespace ChipArch_
          * callback
          * @param databaseSetupCallback
          */
-        inline void setDatabaseSetupCallback(void (*databaseSetupCallback)(SIMPLEKV::SimpleKV&))
+        inline void setDatabaseSetupCallback(void (*databaseSetupCallback)( DataBase::SimpleDataBase&))
         {
             _database_setup_callback = databaseSetupCallback;
         }

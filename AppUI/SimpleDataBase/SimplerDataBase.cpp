@@ -1,9 +1,22 @@
+/**
+*********************************************************************
+*********
+* @project_name :lvgl
+* @file : SimpleDataBase.cpp
+* @author : ruixuezhao890
+* @brief : None
+* @attention : None
+* @date : 2024/10/8 
+*********************************************************************
+*********
+*/
 
-#include "simplekv.h"
 
-namespace SIMPLEKV
+#include "SimpleDataBase.hpp"
+
+namespace DataBase
 {
-    bool SimpleKV::Exist(const std::string& key)
+    bool SimpleDataBase::Exist(const std::string& key)
     {
         if (_value_map.find(key) != _value_map.end())
         {
@@ -12,7 +25,7 @@ namespace SIMPLEKV
         return false;
     }
 
-    size_t SimpleKV::MemoryUsage()
+    size_t SimpleDataBase::MemoryUsage()
     {
         size_t ret = 0;
         for (auto& kv : _value_map)
@@ -22,7 +35,7 @@ namespace SIMPLEKV
         return ret;
     }
 
-    bool SimpleKV::Add(const std::string& key, void* value, size_t size)
+    bool SimpleDataBase::Add(const std::string& key, void* value, size_t size)
     {
         if (Exist(key) || (size == 0))
         {
@@ -44,7 +57,7 @@ namespace SIMPLEKV
         return true;
     }
 
-    bool SimpleKV::Put(const std::string& key, void* value)
+    bool SimpleDataBase::Put(const std::string& key, void* value)
     {
         /* Get iterater */
         auto iter = _value_map.find(key);
@@ -61,7 +74,7 @@ namespace SIMPLEKV
         return false;
     }
 
-    ValueInfo_t* SimpleKV::Get(const std::string& key)
+    ValueInfo_t* SimpleDataBase::Get(const std::string& key)
     {
         /* Get iterater */
         auto iter = _value_map.find(key);
@@ -81,7 +94,7 @@ namespace SIMPLEKV
         return &_ret_buffer;
     }
 
-    bool SimpleKV::Delete(const std::string& key)
+    bool SimpleDataBase::Delete(const std::string& key)
     {
         /* Get iterater */
         auto iter = _value_map.find(key);
@@ -101,7 +114,7 @@ namespace SIMPLEKV
         return false;
     }
 
-    void SimpleKV::DeleteAll()
+    void SimpleDataBase::DeleteAll()
     {
         /* Free memory */
         for (auto& kv : _value_map)
@@ -112,4 +125,4 @@ namespace SIMPLEKV
         /* Remove all element */
         _value_map.erase(_value_map.begin(), _value_map.end());
     }
-} // namespace SIMPLEKV
+} // namespace DataBase

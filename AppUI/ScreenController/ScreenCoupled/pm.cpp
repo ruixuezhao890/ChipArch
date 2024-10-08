@@ -4,7 +4,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-#include "ChipArchConfig.h"
+#include "PubInculde.hpp"
 lv_pm_page_t *lv_pm_router[LV_PM_PAGE_NUM]={nullptr};
 uint8_t lv_pm_history[LV_PM_PAGE_NUM];
 uint8_t lv_pm_history_len;

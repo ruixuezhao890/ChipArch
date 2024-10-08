@@ -99,7 +99,7 @@ void  app_desk_ui::initScreen(lv_obj_t * cont) {
         auto get_widget=getWidget();
         get_widget->app_name_label= lv_label_create(cont);
         lv_obj_align(get_widget->app_name_label,LV_ALIGN_LEFT_MID,5,0);
-        lv_label_set_text(get_widget->app_name_label,"NULL");
+        lv_label_set_text(get_widget->app_name_label," ");
 
         ///祖父对象
         //lv_obj_t *screenA = lv_scr_act();

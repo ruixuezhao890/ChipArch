@@ -1,12 +1,26 @@
+/**
+*********************************************************************
+*********
+* @project_name :lvgl
+* @file : SimpleDataBase.hpp
+* @author : ruixuezhao890
+* @brief : None
+* @attention : None
+* @date : 2024/10/8 
+*********************************************************************
+*********
+*/
 
-#pragma once
+
+#ifndef LVGL_SIMPLEDATABASE_HPP
+#define LVGL_SIMPLEDATABASE_HPP
 #include <cstring>
 #include <iostream>
 #include <string>
 #include <unordered_map>
+#include "ChipArch/ChipArchConfig.h"
 
-namespace SIMPLEKV
-{
+namespace DataBase{
     /* Structure to store data info */
     struct ValueInfo_t
     {
@@ -26,8 +40,7 @@ namespace SIMPLEKV
         }
     };
 
-    class SimpleKV
-    {
+    class SimpleDataBase {
     private:
         std::unordered_map<std::string, ValueInfo_t> _value_map;
         ValueInfo_t _ret_buffer;
@@ -40,7 +53,7 @@ namespace SIMPLEKV
         virtual void* _memcpy(void* dest, const void* src, size_t n) { return memcpy(dest, src, n); }
 
     public:
-        ~SimpleKV() { DeleteAll(); }
+        ~SimpleDataBase() { DeleteAll(); }
 
         /**
          * @brief Get the map size (number of elements)
@@ -141,4 +154,9 @@ namespace SIMPLEKV
             return Put(key, (void*)&value);
         }
     };
-} // namespace SIMPLEKV
+}
+
+
+
+
+#endif //LVGL_SIMPLEDATABASE_HPP

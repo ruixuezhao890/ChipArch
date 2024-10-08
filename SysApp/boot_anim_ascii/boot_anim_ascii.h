@@ -40,9 +40,13 @@ namespace ChipArch_
                     /* Print Info */
                     BootAnim_ASCII::printInfos();
 
-                    /* Go destroy */
-                    destroyApp();
                 }
+
+            void onRunning() override;
+
+            void onPause() override;
+
+
         };
 
         class BootAnim_ASCII_Packer : public APP_PACKER_BASE

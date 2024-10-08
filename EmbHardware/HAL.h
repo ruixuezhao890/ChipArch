@@ -16,7 +16,7 @@
 #define LVGL_HAL_H
 
 #include "lvgl.h"
-#include "ChipArchConfig.h"
+#include "PubInculde.hpp"
 #include "vendor/SimpleString/WString.h"
 #if ESP32
 bool is_pointer_in_psram(void* ptr);
