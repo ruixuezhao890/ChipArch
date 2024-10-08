@@ -1,6 +1,6 @@
 /**
  * @file boot_anim_ascii.cpp
- * @author Forairaaaaa
+ * @author ruixuezhao890
  * @brief 
  * @version 0.1
  * @date 2023-08-20

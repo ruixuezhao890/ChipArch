@@ -1,9 +1,9 @@
 /**
 *********************************************************************
 *********
-* @project_name :modm
+* @project_name :lügl
 * @file : ChipArchChild.h
-* @author : zen3
+* @author : ruixuezhao890
 * @brief : None
 * @attention : None
 * @date : 2024/4/11

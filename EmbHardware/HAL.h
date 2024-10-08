@@ -3,7 +3,7 @@
 *********
 * @project_name :lvgl
 * @file : HAL.h
-* @author : zen3
+* @author : ruixuezhao890
 * @brief : None
 * @attention : None
 * @date : 2024/4/12 

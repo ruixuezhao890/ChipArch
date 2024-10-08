@@ -1,7 +1,7 @@
 /**
 *********************************************************************
 *********
-* @project_name :modm
+* @project_name :lvgl
 * @file : app_desk.hpp
 * @author : ruixuezhao890
 * @brief : None

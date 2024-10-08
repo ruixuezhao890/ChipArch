@@ -3,7 +3,7 @@
 *********
 * @project_name :chip_arch_demo
 * @file : Ethan.h
-* @author : zen3
+* @author : ruixuezhao890
 * @brief : None
 * @attention : None
 * @date : 2024/6/23 

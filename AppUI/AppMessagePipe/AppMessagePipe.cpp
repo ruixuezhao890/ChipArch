@@ -3,7 +3,7 @@
 *********
 * @project_name :lvgl
 * @file : AppMessagePipe.cpp
-* @author : zen3
+* @author : ruixuezhao890
 * @brief : None
 * @attention : None
 * @date : 2024/7/25
