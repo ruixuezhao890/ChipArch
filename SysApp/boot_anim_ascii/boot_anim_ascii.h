@@ -31,7 +31,7 @@ namespace ChipArch_
                     /* Print logo */
                     std::cout << BootAnim_ASCII::getMooncakeASCIILogo();
                     std::cout << "\n- @author ruixuezao890\n";
-                    std::cout << "- @version " << "0.1" << "\n";//todo 添加版本号
+                    std::cout << "- @version " << VERSION << "\n";//todo 添加版本号
                     std::cout << "- @build at " << __TIME__ << " " << __DATE__ << "\n\n";
                 }
 

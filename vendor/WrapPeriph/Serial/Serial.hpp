@@ -30,6 +30,9 @@
 #endif
 #define FMT_HEADER_ONLY
 #include "fmt/core.h"
+#include "fmt/format.h"
+#include "fmt/ranges.h"
+#include "fmt/color.h"
 #include "lvgl.h"
 #include <string>
 #include <iostream> // 包含标准输入输出流头文件

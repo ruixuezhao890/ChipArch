@@ -14,6 +14,8 @@
 
 #ifndef LVGL_CHIPARCHCONFIG_H
 #define LVGL_CHIPARCHCONFIG_H
+
+#define VERSION 1.0
 //这是竖屏的分辨率
 //#define VerticalScreen
 #ifdef VerticalScreen

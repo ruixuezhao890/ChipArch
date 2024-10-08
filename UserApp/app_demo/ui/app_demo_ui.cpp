@@ -137,10 +137,9 @@ static void back_event_handler(lv_event_t * e)
 //        lv_obj_t * mbox1 = lv_msgbox_create(NULL, "Hello", "Root back btn click.", NULL, true);
 //        lv_obj_center(mbox1);
         auto chipArch=ChipArch_::ChipArch::getChipArchInstance();
-
-       auto app=demo_ui->getScreenPacker()->getAppBase();
-       app->closeApp();
-       chipArch->createAndStartApp(ChipArch_::ChipArch::getDeskPointInstance());
+        auto app=demo_ui->getScreenPacker()->getAppBase();
+        app->closeApp();
+        chipArch->createAndStartApp(ChipArch_::ChipArch::getDeskPointInstance());
     }
 }
 
