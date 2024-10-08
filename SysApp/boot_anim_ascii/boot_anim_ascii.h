@@ -10,6 +10,7 @@
  */
 #pragma once
 #include "ChipArch/ChipArch.h"
+#include "PubInculde.hpp"
 #include <cstdio>
 #include <iostream>
 #include <string>
@@ -29,10 +30,18 @@ namespace ChipArch_
                 static void printInfos()
                 {
                     /* Print logo */
-                    std::cout << BootAnim_ASCII::getMooncakeASCIILogo();
-                    std::cout << "\n- @author ruixuezao890\n";
-                    std::cout << "- @version " << VERSION << "\n";//todo 添加版本号
-                    std::cout << "- @build at " << __TIME__ << " " << __DATE__ << "\n\n";
+                    fmt::info("{}",BootAnim_ASCII::getMooncakeASCIILogo());
+                    fmt::info("\n"
+                            "┌{0:─^{2}}┐\n"
+                            "│{1: ^{2}}│\n"
+                            "└{0:─^{2}}┘\n", "", "Hello, ChipArch!", 30);
+
+                    fmt::newline_info("\n- @author ruixuezao890");
+                    fmt::newline_info("- @version {:.1f}",VERSION);
+                    fmt::newline_info("- @build at {} {}",__TIME__,__DATE__);
+//                      std::cout << "\n- @author ruixuezao890\n";
+//                    std::cout << "- @version " << VERSION << "\n";//todo 添加版本号
+//                    std::cout << "- @build at " << __TIME__ << " " << __DATE__ << "\n\n";
                 }
 
                 void onCreate() override
