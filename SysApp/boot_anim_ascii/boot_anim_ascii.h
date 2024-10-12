@@ -50,7 +50,9 @@ namespace ChipArch_
                     BootAnim_ASCII::printInfos();
 
                 }
-
+            
+            void onResume() override;
+            
             void onRunning() override;
 
             void onPause() override;

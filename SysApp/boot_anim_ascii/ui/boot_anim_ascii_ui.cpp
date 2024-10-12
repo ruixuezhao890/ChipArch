@@ -13,6 +13,7 @@
 
 
 #include "boot_anim_ascii_ui.hpp"
+#include "EmbHardware/HAL.h"
 boot_anim_ascii_ui::boot_anim_ascii_ui(lv_pm_page_t * set): SCREEN_BASE(set) {
 
 }
@@ -40,6 +41,14 @@ void boot_anim_ascii_ui::initScreen(lv_obj_t *cont) {
     auto label= lv_label_create(obj);
     lv_label_set_text(label,"BSP Init waiting...");
     lv_obj_center(label);
+    static int i=0;
+    while (1){
+       i+=100;
+       HAL::Delay(5000);
+        if (i==500){
+            break;
+        }
+    }
 }
 
 void boot_anim_ascii_ui::deInitScreen(lv_obj_t *cont) {

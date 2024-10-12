@@ -64,13 +64,13 @@ void ChipArch::init()
 //    spdlog::info("start boot anim");
     _app_manager.destroyAllApps();
     _app_manager.startApp(_app_manager.createApp(_boot_anim));
-    while (1)
-    {
-        _app_manager.update();
-        /* If boot anim is destroyed */
-        if (_app_manager.getCreatedAppNum() == 0)
-            break;
-    }
+    // while (1)
+    // {
+    //     _app_manager.update();
+    //     /* If boot anim is destroyed */
+    //     if (_app_manager.getCreatedAppNum() == 0)
+    //         break;
+    // }
 
 //    spdlog::info("init done");
 }

@@ -21,12 +21,15 @@ const std::string BootAnim_ASCII::_chipArch_ascii_logo = R"(
 )";
 
 void BootAnim_ASCII::onRunning() {
+    
+}
+
+void BootAnim_ASCII::onResume(){
     std::string info="bsp init .";
-    for (int i = 0; i < 10; ++i) {
-        HAL::Delay(2000);
-        fmt::newline_info("{}",info);
-        info+='.';
-    }
+    fmt::newline_info("{} ok",info);
+    auto chip=ChipArch_::ChipArch::getChipArchInstance();
+    chip->installApp(ChipArch_::ChipArch::getDeskPointInstance());
+    chip->createAndStartApp(ChipArch_::ChipArch::getDeskPointInstance()); 
     destroyApp();
 }
 
