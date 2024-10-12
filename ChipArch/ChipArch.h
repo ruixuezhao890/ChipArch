@@ -14,7 +14,6 @@
 #include "AppUI/AppManage/Application/app_register.h"
 #include "AppUI/AppManage/ApplicationManage/app_manager.h"
 #include "AppUI/AppManage/InputSystem/input_device_register.h"
-
 #include "AppUI/SimpleDataBase/SimpleDataBase.hpp"
 #include "ChipArchConfig.h"
 

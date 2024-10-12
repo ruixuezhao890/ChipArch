@@ -53,7 +53,7 @@ app_demo_packer::~app_demo_packer() = default;
 
 
 std::string app_demo_packer::getAppName() {
-    return "demo";
+    return "测试用例";
 }
 
 void *app_demo_packer::getAppIcon() {

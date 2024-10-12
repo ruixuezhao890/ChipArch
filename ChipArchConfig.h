@@ -50,10 +50,16 @@
 #define TOUCH_PORT 0
 #define DISPLAY_PORT 1
 
+
 #define SRAM 1
 #define IMU 1
 #define LVGL_UPDATA_TIME (5)
 
+#define FONT_NAME Font
+#define FS_LETTER 'S'
+#define FONT_PATH "S:/FONT/Font_16.bin"
+#define USE_FATFS_FILE_SYSTEM 0
+#define USE_PC_FILE_SYSTEM 1
 
 #define MESSAGE_NUM 16
 /*****Number of buffers*****/

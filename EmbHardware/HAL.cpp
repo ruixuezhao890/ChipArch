@@ -17,10 +17,7 @@
 
 HAL *HAL::hal_ = nullptr;
 
-
-void HAL::initInputDevice(char letter) {
-   
-}
+lv_style_t HAL::style_font={};
 
 HAL *HAL::getHal() {
     if (hal_)
@@ -36,11 +33,7 @@ bool HAL::Inject(HAL *inject, char letter) {
         return false;
     }
     inject->init();
-
-
-
-    initInputDevice(letter);
-
+    Loadfont();
    fmt::newline_info("HAL injected, type:{}", inject->type().c_str());
     hal_ = inject;
 
@@ -64,6 +57,18 @@ void HAL::destroy() {
     hal_ = nullptr;
    
 }
+void HAL::Loadfont(){
+    lv_style_init(&style_font);
+    lv_style_set_text_font(&style_font,  &FONT_NAME);  //样式使用自定义字体
+   
+}
+ void HAL::Setfont(lv_obj_t* set_obj,const char * setchar,lv_color_t value){
+    lv_label_set_text(set_obj, setchar);
+    lv_style_set_text_color(&style_font,value);  
+    lv_obj_add_style(set_obj, &style_font,LV_STATE_DEFAULT);
+
+}
+
 void HAL:: Os_delay(unsigned long millisenconds){
     getHal()->os_delay(millisenconds);
 }

@@ -17,12 +17,14 @@
 #include "lv_drivers/sdl/sdl.h"
 #include "EmbHardware/LVGLPort/porting/lv_port_indev.h"
 #include "EmbHardware/LVGLPort/porting/lv_port_disp.h"
+#include "EmbHardware/LVGLPort/porting/lv_port_fs.h"
 #include <unistd.h>
 
 void Solitude::init() {
     lv_init();
     lv_port_disp_init();
     lv_port_indev_init();
+    lv_port_fs_init();
 }
 
 void Solitude::delay(unsigned long milliseconds) {

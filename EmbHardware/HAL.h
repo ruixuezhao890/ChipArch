@@ -18,6 +18,8 @@
 #include "lvgl.h"
 #include "PubInculde.hpp"
 #include "vendor/SimpleString/WString.h"
+
+
 #if ESP32
 bool is_pointer_in_psram(void* ptr);
 #endif
@@ -29,9 +31,15 @@ struct ImuData_t
     float accelZ;
 };
 #endif
+
+LV_FONT_DECLARE(FONT_NAME)
+
 class HAL {
 private:
     static HAL * hal_;
+    
+    static lv_style_t style_font;
+
     ImuData_t imu_data_={0,0,0};
 protected:
     
@@ -40,7 +48,7 @@ public:
 
     static HAL * getHal();
 
-    static void initInputDevice(char letter);
+//    static void initInputDevice(char letter);
 
     static bool check();
 
@@ -54,6 +62,11 @@ public:
     virtual void init(){};
 
     static bool Inject(HAL * inject,char letter='0');//注入
+
+    static void Loadfont();
+
+    static void Setfont(lv_obj_t* set_obj,const char * setchar,lv_color_t value=lv_color_black());
+
 
     static void Delay(unsigned long milliseconds);
 

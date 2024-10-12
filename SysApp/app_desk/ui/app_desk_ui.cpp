@@ -83,12 +83,12 @@ static void scroll_event_cb(lv_event_t * e)
         lv_opa_t opa = lv_map(x, 0, r, LV_OPA_TRANSP, LV_OPA_COVER);  //通过r的不同值，动态映射创建不透明度值 opa: opacity
         auto opa_value=LV_OPA_COVER - opa;
         lv_obj_set_style_opa(child, opa_value, 0); //给按钮应用不透明度值  opa: opacity
-        if (opa_value==LV_OPA_COVER){
-            auto label=desk_ui->getWidget()->app_name_label;
-            lv_obj_t * child_label = lv_obj_get_child(child, 0); //button的子类
-            auto set_text=lv_label_get_text(child_label);
-            lv_label_set_text(label,set_text);
-        }
+        // if (opa_value==LV_OPA_COVER){
+        //     auto label=desk_ui->getWidget()->app_name_label;
+        //     lv_obj_t * child_label = lv_obj_get_child(child, 0); //button的子类
+        //     auto set_text=lv_label_get_text(child_label);
+        //     lv_label_set_text(label,set_text);
+        // }
     }
 }
 
@@ -96,10 +96,10 @@ static void scroll_event_cb(lv_event_t * e)
 void  app_desk_ui::initScreen(lv_obj_t * cont) {
         auto chip_ptr=ChipArch_::ChipArch::getChipArchInstance();
 
-        auto get_widget=getWidget();
-        get_widget->app_name_label= lv_label_create(cont);
-        lv_obj_align(get_widget->app_name_label,LV_ALIGN_LEFT_MID,5,0);
-        lv_label_set_text(get_widget->app_name_label," ");
+        // auto get_widget=getWidget();
+        // get_widget->app_name_label= lv_label_create(cont);
+        // lv_obj_align(get_widget->app_name_label,LV_ALIGN_LEFT_MID,5,0);
+        // lv_label_set_text(get_widget->app_name_label," ");
 
         ///祖父对象
         //lv_obj_t *screenA = lv_scr_act();
@@ -153,8 +153,9 @@ void  app_desk_ui::initScreen(lv_obj_t * cont) {
             },LV_EVENT_CLICKED, this);
             ///孙对象
             lv_obj_t * label = lv_label_create(btn); //在button上创建一个label（标签）
-            lv_label_set_text_fmt(label, "%s", item->getAppName().c_str());  //动态设置label的文本内容  fmt: format（格式）
-
+            lv_obj_center(label);
+            // lv_label_set_text_fmt(label, "%s", item->getAppName().c_str());  //动态设置label的文本内容  fmt: format（格式）
+            HAL::Setfont(label,item->getAppName().c_str(),lv_color_white());
         }
 
         /*Update the buttons position manually for first*/ //首次手动更新按钮的位置
